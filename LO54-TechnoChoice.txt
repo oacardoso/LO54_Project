@@ -1,0 +1,9 @@
+Pour :
+JUNIT back/front
+Jasper report
+JAXB
+Talend/pentaho
+Metrics
+Redis
+Javamail
+JMX
