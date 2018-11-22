@@ -5,6 +5,8 @@
  */
 package fr.utbm.ecole.entity;
 
+import java.util.Set;
+
 /**
  *
  * @author mperrot
@@ -16,6 +18,7 @@ public class Client {
     private String address = null;
     private char[] phone = null;
     private String email = null;
+    private Set sessions;
 
     public Client() {
     }
@@ -26,6 +29,7 @@ public class Client {
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.sessions = sessions;
     }
 
     public int getId() {
@@ -51,6 +55,10 @@ public class Client {
     public String getEmail() {
         return email;
     }
+    
+    public Set getSessions() {
+        return sessions;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -75,10 +83,18 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public void setSessions(Set sessions) {
+        this.sessions = sessions;
+    }
+    
+    public void addSessions(Session session) {
+        sessions.add(session);
+    }
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", last_name=" + last_name + ", first_name=" + first_name + ", address=" + address + ", phone=" + phone + ", email=" + email + '}';
+        return "Client{" + "id=" + id + ", last_name=" + last_name + ", first_name=" + first_name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", sessions=" + sessions + '}';
     }
     
 }

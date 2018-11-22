@@ -14,7 +14,7 @@
         <property name="address" column="ADDRESSE" not-null="true"/>
         <property name="phone" column="PHONE" not-null="true"/>
         <property name="email" column="EMAIL"/>
-        <set table="PARTICIPE" name="participe">
+        <set table="PARTICIPE" name="sessions">
             <key column="ID"/>
             <many-to-many class="Session" column="SESSION.ID"/>
         </set>
@@ -41,7 +41,7 @@
         <property name="end_date" column="END_DATE" not-null="true"/>
         <property name="max" column="MAX"/>
         <many-to-one name="location" class="Location" column="LOCATION.ID" not-null="true"/>
-        <many-to-one name="course" class="Course" column="CODE" not-null="true"/>
+        <many-to-one name="course" class="Course" column="COURSE.CODE" not-null="true"/>
     </class> 
   
 </hibernate-mapping>

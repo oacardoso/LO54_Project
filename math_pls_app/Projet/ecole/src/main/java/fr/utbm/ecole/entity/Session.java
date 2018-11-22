@@ -11,14 +11,16 @@ package fr.utbm.ecole.entity;
  */
 public class Session {
     private int id = -1;
-    private char[] start_date = null;
-    private char[] end_date = null;
+    private String start_date = null;
+    private String end_date = null;
     private int max = -1;
+    private Location location = null;
+    private Course course = null;
 
     public Session() {
     }
     
-    public Session(char[] start_date, char[] end_date, int max) {
+    public Session(String start_date, String end_date, int max) {
         this.start_date = start_date;
         this.end_date = end_date;
         this.max = max;
@@ -28,11 +30,11 @@ public class Session {
         return id;
     }
     
-    public char[] getStart_date() {
+    public String getStart_date() {
         return start_date;
     }
 
-    public char[] getEnd_date() {
+    public String getEnd_date() {
         return end_date;
     }
 
@@ -40,15 +42,31 @@ public class Session {
         return max;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
     
-    public void setStart_date(char[] start_date) {
+    public void setStart_date(String start_date) {
         this.start_date = start_date;
     }
 
-    public void setEnd_date(char[] end_date) {
+    public void setEnd_date(String end_date) {
         this.end_date = end_date;
     }
 
