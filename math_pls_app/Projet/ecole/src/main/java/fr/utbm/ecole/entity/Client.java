@@ -16,14 +16,14 @@ public class Client {
     private String last_name = null;
     private String first_name = null;
     private String address = null;
-    private char[] phone = null;
+    private String phone = null;
     private String email = null;
     private Set sessions;
 
     public Client() {
     }
     
-    public Client(String last_name, String first_name, String address, char[] phone, String email) {
+    public Client(String last_name, String first_name, String address, String phone, String email) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.address = address;
@@ -48,7 +48,7 @@ public class Client {
         return address;
     }
 
-    public char[] getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -76,7 +76,7 @@ public class Client {
         this.address = address;
     }
 
-    public void setPhone(char[] phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

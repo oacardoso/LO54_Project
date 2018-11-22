@@ -22,7 +22,7 @@ public class ClientService {
     }
 
     /*Créer un client dans la base*/
-    public Integer addClient(String last_name, String first_name, String address, char[] phone, String email, Set sessions) {
+    public Integer addClient(String last_name, String first_name, String address, String phone, String email, Set sessions) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Integer clientID = null;
         try {

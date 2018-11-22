@@ -12,16 +12,16 @@
         <property name="first_name" column="FIRST_NAME" not-null="true"/>
         <property name="last_name" column="LAST_NAME" not-null="true"/>
         <property name="address" column="ADDRESSE" not-null="true"/>
-        <property name="phone" column="PHONE" not-null="true"/>
+        <property name="phone" column="PHONE" not-null="true" type="character"/>
         <property name="email" column="EMAIL"/>
         <set table="PARTICIPE" name="sessions">
-            <key column="ID"/>
-            <many-to-many class="Session" column="SESSION.ID"/>
+            <key column="CLIENT_ID"/>
+            <many-to-many class="Session" column="COURSE_SESSION_ID"/>
         </set>
     </class>
 	
     <class name="Course" table="COURSE"> 
-        <id column="CODE" name="code">
+        <id column="CODE" name="code" type="character">
             <generator class="assigned"/>
         </id>
         <property name="title" column="TITLE" not-null="true"/>
@@ -37,11 +37,11 @@
         <id column="ID" name="id">
             <generator class="identity"/>
         </id>
-        <property name="start_date" column="START_DATE" not-null="true"/>
-        <property name="end_date" column="END_DATE" not-null="true"/>
+        <property name="start_date" column="START_DATE" not-null="true" type="date"/>
+        <property name="end_date" column="END_DATE" not-null="true" type="date"/>
         <property name="max" column="MAX"/>
-        <many-to-one name="location" class="Location" column="LOCATION.ID" not-null="true"/>
-        <many-to-one name="course" class="Course" column="COURSE.CODE" not-null="true"/>
+        <many-to-one name="location" class="Location" column="LOCATION_ID" not-null="true"/>
+        <many-to-one name="course" class="Course" column="COURSE_CODE" not-null="true"/>
     </class> 
   
 </hibernate-mapping>
