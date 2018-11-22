@@ -12,7 +12,7 @@
         <property name="first_name" column="FIRST_NAME" not-null="true"/>
         <property name="last_name" column="LAST_NAME" not-null="true"/>
         <property name="address" column="ADDRESSE" not-null="true"/>
-        <property name="phone" column="PHONE" not-null="true" type="character"/>
+        <property name="phone" column="PHONE" not-null="true"/>
         <property name="email" column="EMAIL"/>
         <set table="PARTICIPE" name="sessions">
             <key column="CLIENT_ID"/>
@@ -21,7 +21,7 @@
     </class>
 	
     <class name="Course" table="COURSE"> 
-        <id column="CODE" name="code" type="character">
+        <id column="CODE" name="code">
             <generator class="assigned"/>
         </id>
         <property name="title" column="TITLE" not-null="true"/>

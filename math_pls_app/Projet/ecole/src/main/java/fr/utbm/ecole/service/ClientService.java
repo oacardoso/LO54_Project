@@ -29,7 +29,7 @@ public class ClientService {
             session.beginTransaction();
 
             Client client = new Client(last_name, first_name, address, phone, email);
-            client.setSessions(sessions);
+            //client.setSessions(sessions);
             clientID = (Integer) session.save(client);
 
             session.getTransaction().commit();

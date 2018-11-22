@@ -5,14 +5,16 @@
  */
 package fr.utbm.ecole.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author mperrot
  */
 public class Session {
     private int id = -1;
-    private String start_date = null;
-    private String end_date = null;
+    private Date start_date = null;
+    private Date end_date = null;
     private int max = -1;
     private Location location = null;
     private Course course = null;
@@ -20,7 +22,7 @@ public class Session {
     public Session() {
     }
     
-    public Session(String start_date, String end_date, int max) {
+    public Session(Date start_date, Date end_date, int max) {
         this.start_date = start_date;
         this.end_date = end_date;
         this.max = max;
@@ -30,11 +32,11 @@ public class Session {
         return id;
     }
     
-    public String getStart_date() {
+    public Date getStart_date() {
         return start_date;
     }
 
-    public String getEnd_date() {
+    public Date getEnd_date() {
         return end_date;
     }
 
@@ -62,11 +64,11 @@ public class Session {
         this.id = id;
     }
     
-    public void setStart_date(String start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 
-    public void setEnd_date(String end_date) {
+    public void setEnd_date(Date end_date) {
         this.end_date = end_date;
     }
 

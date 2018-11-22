@@ -10,18 +10,18 @@ package fr.utbm.ecole.entity;
  * @author mperrot
  */
 public class Course {
-    private char[] code = null;
+    private String code = null;
     private String title = null;
 
     public Course() {
     }
     
-    public Course(char[] code, String title) {
+    public Course(String code, String title) {
         this.code = code;
         this.title = title;
     }
 
-    public char[] getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -29,7 +29,7 @@ public class Course {
         return title;
     }
 
-    public void setCode(char[] code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
