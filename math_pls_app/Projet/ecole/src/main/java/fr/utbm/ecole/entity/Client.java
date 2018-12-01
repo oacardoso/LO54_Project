@@ -5,6 +5,7 @@
  */
 package fr.utbm.ecole.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,7 +30,6 @@ public class Client {
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.sessions = sessions;
     }
 
     public int getId() {
@@ -88,8 +88,30 @@ public class Client {
         this.sessions = sessions;
     }
     
-    public void addSessions(Session session) {
-        sessions.add(session);
+    public Set addSessions(Set sessions) {
+        Set f_sessions = new HashSet();
+        if (sessions != null && !sessions.isEmpty())
+        {
+            if (this.sessions != null && !this.sessions.isEmpty())
+            {
+                for(Object session : this.sessions)
+                {
+                    for(Object session_b : sessions)
+                    {
+                        if (((Session)session).getId() == ((Session)session_b).getId() )
+                        {
+                            f_sessions.add(session_b);
+                            sessions.remove(session_b);
+                            break;
+                        }
+                    }
+                }
+                this.sessions.addAll(sessions);
+            }
+            else
+                this.sessions = sessions;
+        }
+        return f_sessions;
     }
 
     @Override

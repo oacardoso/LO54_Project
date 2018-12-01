@@ -5,10 +5,13 @@
  */
 package fr.utbm.ecole;
 
+import fr.utbm.ecole.entity.Course;
 import fr.utbm.ecole.entity.Session;
 import fr.utbm.ecole.service.ClientService;
-import java.util.Date;
+import fr.utbm.ecole.service.CourseService;
+import fr.utbm.ecole.service.SessionService;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  *
@@ -16,16 +19,9 @@ import java.util.HashSet;
  */
 public class App {
     public static void main(String[] args) {
-
-        ClientService cs = new ClientService();
+ 
+        CourseService css = new CourseService();
         
-        HashSet sessions = new HashSet();
-        
-        sessions.add(new Session(new Date(2018, 12, 01), new Date(2018, 12, 10), 40));
-        sessions.add(new Session(new Date(2019, 01, 05), new Date(2019, 01, 20), 40));
-        
-        cs.addClient("Dubois", "Jean-Du", "21000 Dijon", "0325456321", "blabla@free.fr", sessions);
-        
-        cs.listClients();
+        css.listCourses("test");
     }
 }
