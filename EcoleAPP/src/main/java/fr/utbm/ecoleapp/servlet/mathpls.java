@@ -36,25 +36,24 @@ public class mathpls extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            try{
+            request.getRequestDispatcher("/mathpls.jsp").forward(request,response); 
+
+            try {
                 if (request.getParameter("Inscrire").equals("Enregistrer")) {
                     String lastname = request.getParameter("lastname");
                     String firstname = request.getParameter("firstname");
                     String mail = request.getParameter("mail");
                     String number = request.getParameter("number");
-                    String adress = request.getParameter("adress"); 
+                    String adress = request.getParameter("adress");
                     ClientService cl = new ClientService();
                     cl.addClient(lastname, firstname, adress, number, mail, null);
-                    
                 }
-            }
-            catch(Exception ex){
-                
-            }
+            } catch (Exception ex) {
 
             }
+
         }
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
