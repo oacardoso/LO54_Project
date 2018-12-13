@@ -1,10 +1,14 @@
 
 <!doctype html>
+<Context path="/EcoleAPP/mathpls"/>
 <html>
     <body>
-
-<p>Bonjour et bienvenue sur le site de l'école !</p>
-
+        <ul class="navbar">
+            <li><a href="index.html">Home page</a>
+            <li><a href="mathpls.jsp">Inscripton</a>
+        </ul>
+        
+        
 <form class="form-horizontal col-lg-6" action="mathpls" method="POST">
   <div class="form-group">
     <legend>Inscription</legend>

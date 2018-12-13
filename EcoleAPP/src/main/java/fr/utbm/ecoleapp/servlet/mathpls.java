@@ -42,17 +42,12 @@ public class mathpls extends HttpServlet {
                     String firstname = request.getParameter("firstname");
                     String mail = request.getParameter("mail");
                     String number = request.getParameter("number");
-                    String adress = request.getParameter("adress");
-                    Client c = new Client(lastname, firstname, adress, number, mail);
+                    String adress = request.getParameter("adress"); 
                     ClientService cl = new ClientService();
-
-                    HashSet sessions = new HashSet();
-
-                    sessions.add(new Session(new Date(2018, 12, 01), new Date(2018, 12, 10), 40));
-
-                    cl.addClient(lastname, firstname, adress, number, mail, sessions);
+                    cl.addClient(lastname, firstname, adress, number, mail, null);
+                    
                 }
-                }
+            }
             catch(Exception ex){
                 
             }
