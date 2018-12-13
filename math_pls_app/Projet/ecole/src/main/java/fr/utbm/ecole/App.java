@@ -69,7 +69,7 @@ public class App {
         EntityStatistics entityStats = stats.getEntityStatistics(Course.class.getName());
         long changes =
                 entityStats.getInsertCount()
-                + entityStats.getUpdateCount()
+                 + entityStats.getUpdateCount()
                 + entityStats.getDeleteCount();
         System.out.println(Course.class.getName() + " changed " + changes + "times"  );
     }
