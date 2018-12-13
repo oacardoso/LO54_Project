@@ -23,4 +23,10 @@ public class SessionService {
         SessionDao dao = new SessionDao();
         return dao.listSessions(course);
     }
+    
+    /*Liste les sessions selon le code d'un cours*/
+    public List listSessions(String code) {
+        SessionDao dao = new SessionDao();
+        return dao.listSessions(code);
+    }
 }

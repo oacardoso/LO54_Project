@@ -7,6 +7,9 @@ package fr.utbm.ecole;
 
 import fr.utbm.ecole.service.ClientService;
 import fr.utbm.ecole.service.CourseService;
+import fr.utbm.ecole.service.SessionService;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 
 /**
@@ -16,8 +19,9 @@ import java.util.HashSet;
 public class App {
     public static void main(String[] args) {
  
-        ClientService css = new ClientService();
+        CourseService css = new CourseService();
+        css.listCoursesLoc("DIJON");
+
         
-        css.addClient("Janvier", "Robert", "4 rue Emile Zozo", "0365478520", "robertdu82@free.fr", new HashSet());
     }
 }

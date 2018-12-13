@@ -41,4 +41,10 @@ public class CourseService {
         CourseDao dao = new CourseDao();
         return dao.listCourses(date);
     }
+    
+    /*Liste les cours selon un lieu*/
+    public List listCoursesLoc(String loc) {
+        CourseDao dao = new CourseDao();
+        return dao.listCoursesLoc(loc);
+    }
 }
