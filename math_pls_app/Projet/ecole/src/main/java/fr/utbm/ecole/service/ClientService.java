@@ -6,12 +6,9 @@
 package fr.utbm.ecole.service;
 
 import fr.utbm.ecole.entity.Client;
-import java.util.Iterator;
+import fr.utbm.ecole.repository.ClientDao;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 /**
  *
@@ -21,168 +18,29 @@ public class ClientService {
 
     public ClientService() {
     }
-
-    /*Crée un client dans la base*/
+    
+    /*Nouveau client*/
     public Integer addClient(String last_name, String first_name, String address, String phone, String email, Set sessions) {
-        
-        Client cl = getClient(first_name, last_name);
-        if (cl != null)
-        {
-            System.out.println("Le client " + first_name + " " + last_name + " existe déjà dans la base.");
-            addClientSession(cl, sessions);
-            return cl.getId();
-        }
-        
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Integer clientID = null;
-        try {
-            session.beginTransaction();
-
-            Client client = new Client(last_name, first_name, address, phone, email);
-            client.setSessions(sessions);
-            clientID = (Integer) session.save(client);
-
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-                } catch (HibernateException he2) {
-                    he2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException he3) {
-                    he3.printStackTrace();
-                }
-            }
-        }
-        return clientID;
+        ClientDao dao = new ClientDao();
+        return dao.addClient(last_name, first_name, address, phone, email, sessions);
     }
 
-    /*Liste les clients de la base*/
+    /*Liste des clients*/
     public List listClients() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List clients = null;
-        try {
-            session.beginTransaction();
-            clients = session.createQuery("FROM Client").list();
-            for (Iterator iterator1 = clients.iterator(); iterator1.hasNext();) {
-                Client client = (Client) iterator1.next();
-                System.out.print("First Name: " + client.getFirst_name());
-                System.out.print("; Last Name: " + client.getLast_name());
-                System.out.println("; Address: " + client.getAddress());
-                System.out.println("; Email: " + client.getEmail());
-                System.out.println("; Phone: " + client.getPhone());
-                Set sessions = client.getSessions();
-                for (Iterator iterator2 = sessions.iterator(); iterator2.hasNext();) {
-                    fr.utbm.ecole.entity.Session ses = (fr.utbm.ecole.entity.Session) iterator2.next();
-                    System.out.println("Session: " + ses.getStart_date());
-                }
-            }
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-                } catch (HibernateException he2) {
-                    he2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException he3) {
-                    he3.printStackTrace();
-                }
-            }
-        }
-        return clients;
+        ClientDao dao = new ClientDao();
+        return dao.listClients();
     }
     
-    /*Renvoie un client de la base*/
+    /*Renvoie un client selon son nom*/
     public Client getClient(String first_name, String last_name) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Client client = null;
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("FROM Client C where C.last_name = :lname and C.first_name = :fname ");
-            query.setParameter("lname", last_name);
-            query.setParameter("fname", first_name);
-            client = (Client) query.uniqueResult();
-            System.out.println(client.getSessions().size());
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-                } catch (HibernateException he2) {
-                    he2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException he3) {
-                    he3.printStackTrace();
-                }
-            }
-        }
-        try {
-            Set sessions = client.getSessions();
-            for (Iterator iterator2 = sessions.iterator(); iterator2.hasNext();) {
-                fr.utbm.ecole.entity.Session ses = (fr.utbm.ecole.entity.Session) iterator2.next();
-                System.out.println("Session: " + ses.getStart_date());
-            }
-        } catch (HibernateException he3) {
-            he3.printStackTrace();
-        }    
-        return client;
+        ClientDao dao = new ClientDao();
+        return dao.getClient(first_name, last_name);
     }
     
     /*Ajoute des sessions de cours à un client*/
     public void addClientSession(Client client, Set sessions) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.beginTransaction();
-            
-            Set f_sessions = client.addSessions(sessions);
-            if(!f_sessions.isEmpty())
-            {
-                for(Object s : f_sessions)
-                {
-                    System.out.println("Le client est déjà inscrit à la session du " + ((fr.utbm.ecole.entity.Session)s).getStart_date());
-                }
-            }
-            
-            session.update(client);
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-                } catch (HibernateException he2) {
-                    he2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException he3) {
-                    he3.printStackTrace();
-                }
-            }
-        }
+        ClientDao dao = new ClientDao();
+        dao.addClientSession(client, sessions);
     }
 
 }
