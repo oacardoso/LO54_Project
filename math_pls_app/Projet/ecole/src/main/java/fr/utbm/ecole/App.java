@@ -5,13 +5,9 @@
  */
 package fr.utbm.ecole;
 
-import fr.utbm.ecole.entity.Course;
-import fr.utbm.ecole.entity.Session;
 import fr.utbm.ecole.service.ClientService;
 import fr.utbm.ecole.service.CourseService;
-import fr.utbm.ecole.service.SessionService;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  *
@@ -20,8 +16,8 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
  
-        CourseService css = new CourseService();
+        ClientService css = new ClientService();
         
-        css.listCourses("test");
+        css.addClient("Janvier", "Robert", "4 rue Emile Zozo", "0365478520", "robertdu82@free.fr", new HashSet());
     }
 }

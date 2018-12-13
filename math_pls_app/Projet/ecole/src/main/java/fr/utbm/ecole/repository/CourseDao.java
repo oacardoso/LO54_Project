@@ -7,6 +7,7 @@ package fr.utbm.ecole.repository;
 
 import fr.utbm.ecole.entity.Course;
 import fr.utbm.ecole.tools.HibernateUtil;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -103,6 +104,43 @@ public class CourseDao {
             session.beginTransaction();
             Query query = session.createQuery("FROM Course C where C.title LIKE CONCAT('%',:mot,'%')");
             query.setParameter("mot", mot_cle);
+            courses = query.list();
+            for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
+                Course course = (Course) iterator1.next();
+                System.out.print("Code: " + course.getCode());
+                System.out.print("; Titre: " + course.getTitle());
+                System.out.println();
+            }
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            if (session.getTransaction() != null) {
+                try {
+                    session.getTransaction().rollback();
+                } catch (HibernateException he2) {
+                    he2.printStackTrace();
+                }
+            }
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (HibernateException he3) {
+                    he3.printStackTrace();
+                }
+            }
+        }
+        return courses;
+    }
+    
+    /*Liste les cours de la base selon une date donnée*/
+    public List listCourses(Date date) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List courses = null;
+        try {
+            session.beginTransaction();
+            Query query = session.createQuery("FROM Course C inner join fetch C.Course_session where :date between C.start_date and C.end_date");
+            query.setParameter("date", date);
             courses = query.list();
             for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
                 Course course = (Course) iterator1.next();

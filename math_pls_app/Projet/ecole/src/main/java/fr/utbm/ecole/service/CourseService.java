@@ -6,6 +6,7 @@
 package fr.utbm.ecole.service;
 
 import fr.utbm.ecole.repository.CourseDao;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,5 +34,11 @@ public class CourseService {
     public List listCourses(String mot_cle) {
         CourseDao dao = new CourseDao();
         return dao.listCourses(mot_cle);
+    }
+    
+    /*Liste les cours selon une date*/
+    public List listCourses(Date date) {
+        CourseDao dao = new CourseDao();
+        return dao.listCourses(date);
     }
 }
