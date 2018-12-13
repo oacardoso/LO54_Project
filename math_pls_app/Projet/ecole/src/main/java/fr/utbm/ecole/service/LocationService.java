@@ -5,6 +5,7 @@
  */
 package fr.utbm.ecole.service;
 
+import fr.utbm.ecole.tools.HibernateUtil;
 import fr.utbm.ecole.entity.Location;
 import java.util.Iterator;
 import java.util.List;
