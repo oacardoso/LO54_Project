@@ -49,7 +49,7 @@ public class mathpls extends HttpServlet {
                     cl.addClient(lastname, firstname, adress, number, mail, null);
                 }
             } catch (Exception ex) {
-
+                
             }
 
         }

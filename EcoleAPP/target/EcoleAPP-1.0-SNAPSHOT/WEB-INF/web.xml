@@ -4,9 +4,17 @@
         <servlet-name>mathpls</servlet-name>
         <servlet-class>fr.utbm.ecoleapp.servlet.mathpls</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>course_session</servlet-name>
+        <servlet-class>fr.utbm.ecoleapp.servlet.course_session</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mathpls</servlet-name>
         <url-pattern>/mathpls</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>course_session</servlet-name>
+        <url-pattern>/course_session</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -14,6 +22,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        index.jsp
+        /EcoleAPP/Acceuil.jsp
     </welcome-file-list>
 </web-app>
