@@ -1,3 +1,7 @@
+<%@page import="fr.utbm.ecole.entity.Course"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.utbm.ecole.service.CourseService"%>
 <!doctype html>
 <html>
     <head>
@@ -64,8 +68,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group">
-                    <a href="../../../../../../../Desktop/test.html"></a>
+                <div class="form-group">    
                     <label for="textarea" class="col-lg-2 control-label">Email : </label>
                     <div class="col-lg-10">
                         <input type="textarea" class="form-control" id="textarea" required name="mail">
@@ -76,11 +79,28 @@
                 <div class="form-group">
                     <label for="textarea" class="col-lg-2 control-label">Tableau : </label>
                     <div class="col-lg-10">
-                        <table>
+                        <thead>
                             <tr>
-                                <td> Personne 11</td>
+                                <th>CODE</th>
+                                <th>Description</th>
                             </tr>
-                        </table>
+                        </thead>
+                        <tbody>
+                            <%
+                                CourseService Cs = new CourseService();
+                                List<CourseService> courses = Cs.listCourses();
+                                // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
+                                for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
+                                    Course course = (Course) iterator1.next();
+                                    // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
+                            %>
+                            <tr>
+                                <td><% out.print(course.getCode()); %></td>
+                                <td><% out.print(course.getTitle()); %></td>
+
+                            </tr> 
+                            <% }%>
+                        </tbody>
                     </div>
                 </div>
             </div>

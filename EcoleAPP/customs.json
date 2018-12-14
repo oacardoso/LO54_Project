@@ -1,6 +1,9 @@
 {
     "elements": {},
     "attributes": {
+        "name": {
+            "context": "form"
+        },
         "formulaire.jsp\")%": {
             "context": "a"
         }

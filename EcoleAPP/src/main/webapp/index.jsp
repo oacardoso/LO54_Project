@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Date"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.utbm.ecole.service.CourseService"%>
@@ -46,7 +47,14 @@
             table.Table_des_cours tfoot td {
                 font-size: 14px;
             }
-        </style>
+                    
+            #tdid{
+                cursor:pointer;
+                display:block;
+                width:100%;
+                height:100%;
+            }
+</style>
 
     </head>  
     <body>
@@ -58,6 +66,13 @@
             <li><a href="course_session">Course Session</a>
             <li><a href="mathpls">Course Inscription</a>
         </ul>
+        <h3>Filtrer :</h3>
+        
+        <input type="date" name="start_date">
+
+        
+        <input type="date" name="end_date">
+
         <table class="Table_des_cours">
             <thead>
                 <tr>
@@ -69,24 +84,22 @@
             </c:forEach>
         </thead>
         <tbody>
-            <%
+            <% 
                 CourseService Cs = new CourseService();
-                List<CourseService> courses = Cs.listCourses();
-                // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
-            %>
-            <% for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
+                List<CourseService> courses = Cs.listCourses("");
+                // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
+                for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
                     Course course = (Course) iterator1.next();
-                    // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
+                    String varCode = course.getCode();;
             %>
             <tr>
-                <td><% out.print(course.getCode()); %></td>
+                <td onclick="location.href='http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
                 <td><% out.print(course.getTitle()); %></td>
-                
+
             </tr> 
             <% }%>
         </tbody>
-    </tr>
-</table>
+    </table>
 </body>
 
 </html>
