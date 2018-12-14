@@ -64,7 +64,7 @@
                 <li><a href="course_session">Course Session</a>
                 <li><a href="mathpls">Course Inscription</a>
             </ul>
-            <h2>Sessions pour le cours : </h2>
+            <h2>Sessions pour le cours : <% out.print((String) request.getParameter("td")); %></h2>
                     <table class="Table_des_cours">
             <thead>
                 <tr>
@@ -82,7 +82,7 @@
         <tbody>
             <%
                 SessionService Ses = new SessionService();
-                List<SessionService> Sessions = Ses.listSessions("LO54");
+                List<SessionService> Sessions = Ses.listSessions( (String) request.getParameter("td"));
                 // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
              for (Iterator iterator1 = Sessions.iterator(); iterator1.hasNext();) {
                     Session sessionn = (Session) iterator1.next();
