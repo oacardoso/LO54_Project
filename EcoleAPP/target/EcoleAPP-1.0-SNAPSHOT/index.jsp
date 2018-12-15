@@ -47,14 +47,14 @@
             table.Table_des_cours tfoot td {
                 font-size: 14px;
             }
-                    
+
             #tdid{
                 cursor:pointer;
                 display:block;
                 width:100%;
                 height:100%;
             }
-</style>
+        </style>
 
     </head>  
     <body>
@@ -67,33 +67,29 @@
             <li><a href="mathpls">Course Inscription</a>
         </ul>
         <h3>Filtrer :</h3>
-        
-        <input type="date" name="start_date">
 
-        
-        <input type="date" name="end_date">
+    <input type="date" name="start_date">
 
-        <table class="Table_des_cours">
-            <thead>
-                <tr>
-                    <th>CODE</th>
-                    <th>Description</th>
-                </tr>
-            <c:forEach items="courses" var="">
-                ${item}<br>
-            </c:forEach>
+
+    <input type="date" name="end_date">
+
+    <table class="Table_des_cours">
+        <thead>
+            <tr>
+                <th>CODE</th>
+                <th>Description</th>
+            </tr>
         </thead>
         <tbody>
-            <% 
+            <%
                 CourseService Cs = new CourseService();
                 List<CourseService> courses = Cs.listCourses("");
                 // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
                 for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
                     Course course = (Course) iterator1.next();
-                    String varCode = course.getCode();;
             %>
             <tr>
-                <td onclick="location.href='http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
+                <td onclick="location.href = 'http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
                 <td><% out.print(course.getTitle()); %></td>
 
             </tr> 

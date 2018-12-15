@@ -13,7 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    <head>  
         <style>
             @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i|IBM+Plex+Sans+Condensed:400,400i|IBM+Plex+Sans:100,100i,400,400i,700,700i|IBM+Plex+Serif:400,400i|Slabo+27px');
             table.Table_des_cours {
@@ -89,12 +89,11 @@
                     // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
             %>
             <tr>
-                <td><% out.print(sessionn.getStart_date()); %></td>
+                <td onclick="location.href = 'http://localhost:8080/EcoleAPP/mathpls?date=<%out.print(sessionn.getStart_date());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
                 <td><% out.print(sessionn.getEnd_date()); %></td>
                 <td><% out.print(sessionn.getMax()); %></td>
                 <td><% out.print(sessionn.getLocation().getCity()); %></td>
                 <td><% out.print(sessionn.getCourse().getCode()); %></td>
-
             </tr> 
             <% }%>
         </tbody>
