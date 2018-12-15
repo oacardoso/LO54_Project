@@ -73,9 +73,6 @@
                     <th>Code Course</th>
                     
                 </tr>
-            <c:forEach items="courses" var="">
-                ${item}<br>
-            </c:forEach>
         </thead>
         <tbody>
             <%

@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
 <%@page import="fr.utbm.ecole.entity.Location"%>
@@ -57,7 +58,7 @@
                 height:100%;
             }
         </style>
-       
+
     </head>  
     <body>
 
@@ -71,11 +72,10 @@
         <form>
             <select name="ville">
                 <%
-                    LocationService Ls= new LocationService();
-                    List <LocationService> Locations = Ls.listLocations();
-                    
-                for (Iterator iterator1 = Locations.iterator(); iterator1.hasNext();) {
-                    Location city  = (Location) iterator1.next();
+                    LocationService Ls = new LocationService();
+                    List<LocationService> Locations = Ls.listLocations();
+                    for (Iterator iterator1 = Locations.iterator(); iterator1.hasNext();) {
+                        Location city = (Location) iterator1.next();
                 %>
                 <option value="<% out.print(city.getCity());%>">
                     <%
@@ -87,41 +87,53 @@
             <button class="button" >Filtrer Par Ville</button>
 
         </form>
+        <form>
+            <input type="date" name="date">
 
-    <table class="Table_des_cours">
-        <thead>
-            <tr>
-                <th>CODE</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%
-                CourseService Cs = new CourseService();
-                List<CourseService> courses = Cs.listCourses("");
-            %>
-            <c:if test="${!empty param.ville}">
-            <%
-                if(request.getParameter("ville")!=null){
-                    
-                courses = Cs.listCoursesLoc(request.getParameter("ville"));
-                }
-            %>
-            </c:if>
+            <button class="button" >Filtrer par date</button>
+        </form>
+        <form>
+            <input type="text" name="mot_clef">
 
-            <%  
-                // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
-                for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                    Course course = (Course) iterator1.next();
-            %>
-            <tr>
-                <td onclick="location.href = 'http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
-                <td><% out.print(course.getTitle()); %></td>
+            <button class="button" >Filtrer par mot-clef</button>
+        </form>
 
-            </tr> 
-            <% }%>
-        </tbody>
-    </table>
-</body>
+
+        <table class="Table_des_cours">
+            <thead>
+                <tr>
+                    <th>CODE</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    CourseService Cs = new CourseService();
+                    List<CourseService> courses = Cs.listCourses("");
+                    if (request.getParameter("ville") != null) {
+                        courses = Cs.listCoursesLoc(request.getParameter("ville"));
+                    } 
+                    if (request.getParameter("date") != null) {
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                        Date d = sdf.parse(request.getParameter("date"));
+                        courses = Cs.listCourses(d);
+                    }
+                    if (request.getParameter("mot_clef") != null) {
+                        courses = Cs.listCourses(request.getParameter("mot_clef"));
+                    }
+                    // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
+                    for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
+                        Course course = (Course) iterator1.next();
+                %>
+                <tr>
+                    <td onclick="location.href = 'http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
+                    <td><% out.print(course.getTitle()); %></td>
+
+                </tr> 
+                <% }%>
+            </tbody>
+        </table>
+    </body>
 
 </html>
