@@ -29,4 +29,10 @@ public class SessionService {
         SessionDao dao = new SessionDao();
         return dao.listSessions(code);
     }
+    
+    /*Nombre de participants à une session*/
+    public long numParticipants(int id) {
+        SessionDao dao = new SessionDao();
+        return dao.numParticipants(id);
+    }
 }

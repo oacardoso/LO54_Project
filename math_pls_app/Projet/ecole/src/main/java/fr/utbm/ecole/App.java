@@ -19,8 +19,9 @@ import java.util.HashSet;
 public class App {
     public static void main(String[] args) {
  
-        CourseService css = new CourseService();
-        css.listCoursesLoc("DIJON");
+        SessionService css = new SessionService();
+        int id = 5;
+        css.numParticipants(id);
 
         
     }

@@ -102,4 +102,36 @@ public class SessionDao {
         return sess;
     }
     
+    /*Donne le nombre de participants à une session donnée*/
+    public long numParticipants(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        long nb = 0;
+        try {
+            session.beginTransaction();
+            Query query = session.createQuery("Select count(*) FROM Client C inner join C.sessions sessions where sessions.id = :id");
+            query.setParameter("id", id);
+            nb = (long)query.uniqueResult();
+            System.out.println("Nb participants : " + nb);
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            if (session.getTransaction() != null) {
+                try {
+                    session.getTransaction().rollback();
+                } catch (HibernateException he2) {
+                    he2.printStackTrace();
+                }
+            }
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (HibernateException he3) {
+                    he3.printStackTrace();
+                }
+            }
+        }
+        return nb;
+    }
+    
 }
