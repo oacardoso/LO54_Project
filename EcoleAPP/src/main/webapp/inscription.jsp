@@ -1,3 +1,5 @@
+<%@page import="fr.utbm.ecole.entity.Session"%>
+<%@page import="fr.utbm.ecole.service.SessionService"%>
 <!doctype html>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -74,23 +76,27 @@
                             <thead>
                                 <tr>
                                     <th>CODE</th>
-                                    <th>Description</th>
+                                    <th>Location</th>
+                                    <th>Date Début</th>
+                                    <th>Date Fin</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
-                                    CourseService Cs = new CourseService();
-                                    Date date1 = new SimpleDateFormat("yyyy-mm-dd").parse(request.getParameter("date"));
-                                    List<CourseService> courses = Cs.listCourses(date1);
+                                    SessionService Ses = new SessionService();
+                                    List<SessionService> LSes = Ses.listSessions(request.getParameter("code"));
                                     // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
-                                    for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                                        Course course = (Course) iterator1.next();
+                                    for (Iterator iterator1 = LSes.iterator(); iterator1.hasNext();) {
+                                        Session sessionn = (Session) iterator1.next();
                                         // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
-                                        if (course.getCode().equals(request.getParameter("code"))) {
+                                        if(sessionn.getId()== Integer.parseInt(request.getParameter("id_session"))){
                                 %>
                                 <tr>
-                                    <td><%out.print(course.getCode()); %></td>
-                                    <td><% out.print(course.getTitle());%></td>
+                                    <td><%out.print(sessionn.getCourse().getCode()); %></td>
+                                    <td><% out.print(sessionn.getLocation().getCity());%></td>
+                                    <td><% out.print(sessionn.getStart_date());%></td>
+                                    <td><% out.print(sessionn.getEnd_date());%></td>
+                                    
                                 </tr> 
                                 <% }
                                     }%>
