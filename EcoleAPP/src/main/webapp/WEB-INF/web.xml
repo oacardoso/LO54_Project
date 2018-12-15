@@ -8,6 +8,10 @@
         <servlet-name>course_session</servlet-name>
         <servlet-class>fr.utbm.ecoleapp.servlet.course_session</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <servlet-class>fr.utbm.ecoleapp.servlet.index</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inscription</servlet-name>
         <url-pattern>/inscription</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>course_session</servlet-name>
         <url-pattern>/course_session</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/index</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

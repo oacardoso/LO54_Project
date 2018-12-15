@@ -1,3 +1,4 @@
+<!doctype html>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.lang.String"%>
@@ -5,7 +6,6 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.utbm.ecole.service.CourseService"%>
-<!doctype html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,7 +23,7 @@
             <li><a href="course_session">Course Session</a>
             <li><a href="inscription">Course Inscription</a>
         </ul>
-        <form name="form1" class="form-horizontal col-lg-6"  action="inscription" method="POST">
+        <form name="form1" class="form-horizontal col-lg-6"  action="/EcoleAPP" method="POST">
             <div class="form-group">
                 <h1>Inscription</h1>
             </div>

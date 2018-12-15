@@ -1,11 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
+<%@page import="fr.utbm.ecole.entity.Location"%>
+<%@page import="fr.utbm.ecole.service.LocationService"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.utbm.ecole.service.CourseService"%>
 <%@page import="fr.utbm.ecole.entity.Course"%>
 <%@page import="java.util.ArrayList"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
     <head>
         <title>GreatSchool</title>
@@ -55,7 +57,7 @@
                 height:100%;
             }
         </style>
-
+       
     </head>  
     <body>
 
@@ -66,9 +68,25 @@
             <li><a href="inscription">Course Inscription</a>
         </ul>
         <h3>Filtrer :</h3>
+        <form>
+            <select name="ville">
+                <%
+                    LocationService Ls= new LocationService();
+                    List <LocationService> Locations = Ls.listLocations();
+                    
+                for (Iterator iterator1 = Locations.iterator(); iterator1.hasNext();) {
+                    Location city  = (Location) iterator1.next();
+                %>
+                <option value="<% out.print(city.getCity());%>">
+                    <%
+                        out.print(city.getCity());
+                    %>
+                </option>
+                <%}%>
+            </select>
+            <button class="button" >Filtrer Par Ville</button>
 
-    <input type="date" name="start_date">
-    <input type="date" name="end_date">
+        </form>
 
     <table class="Table_des_cours">
         <thead>
@@ -81,6 +99,17 @@
             <%
                 CourseService Cs = new CourseService();
                 List<CourseService> courses = Cs.listCourses("");
+            %>
+            <c:if test="${!empty param.ville}">
+            <%
+                if(request.getParameter("ville")!=null){
+                    
+                courses = Cs.listCoursesLoc(request.getParameter("ville"));
+                }
+            %>
+            </c:if>
+
+            <%  
                 // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
                 for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
                     Course course = (Course) iterator1.next();
