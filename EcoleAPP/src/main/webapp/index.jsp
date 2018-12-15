@@ -62,15 +62,12 @@
         <h1>Accueil</h1>
 
         <ul class="navbar">
-            <li><a href="/EcoleAPP">Course</a>
             <li><a href="course_session">Course Session</a>
-            <li><a href="mathpls">Course Inscription</a>
+            <li><a href="inscription">Course Inscription</a>
         </ul>
         <h3>Filtrer :</h3>
 
     <input type="date" name="start_date">
-
-
     <input type="date" name="end_date">
 
     <table class="Table_des_cours">

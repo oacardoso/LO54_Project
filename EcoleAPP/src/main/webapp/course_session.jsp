@@ -61,8 +61,6 @@
             <h1> Menu</h1>
             <ul class="navbar">
                 <li><a href="/EcoleAPP">Course</a>
-                <li><a href="course_session">Course Session</a>
-                <li><a href="mathpls">Course Inscription</a>
             </ul>
             <h2>Sessions pour le cours : <% out.print((String) request.getParameter("td")); %></h2>
                     <table class="Table_des_cours">
@@ -89,7 +87,7 @@
                     // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
             %>
             <tr>
-                <td onclick="location.href = 'http://localhost:8080/EcoleAPP/mathpls?date=<%out.print(sessionn.getStart_date());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
+                <td onclick="location.href = 'http://localhost:8080/EcoleAPP/inscription?date=<%out.print(sessionn.getStart_date());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
                 <td><% out.print(sessionn.getEnd_date()); %></td>
                 <td><% out.print(sessionn.getMax()); %></td>
                 <td><% out.print(sessionn.getLocation().getCity()); %></td>
