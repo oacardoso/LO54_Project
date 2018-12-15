@@ -63,11 +63,6 @@
     <body>
 
         <h1>Accueil</h1>
-
-        <ul class="navbar">
-            <li><a href="course_session">Course Session</a>
-            <li><a href="inscription">Course Inscription</a>
-        </ul>
         <h3>Filtrer :</h3>
         <form>
             <select name="ville">

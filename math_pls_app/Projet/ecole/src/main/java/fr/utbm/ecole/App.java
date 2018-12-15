@@ -11,6 +11,7 @@ import fr.utbm.ecole.service.SessionService;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  *
@@ -19,9 +20,12 @@ import java.util.HashSet;
 public class App {
     public static void main(String[] args) {
  
-        SessionService css = new SessionService();
-        int id = 5;
-        css.numParticipants(id);
+        ClientService Cs = new ClientService();
+        SessionService Ss = new SessionService();
+        List<SessionService> LSs = Ss.listSessions("IF41");
+        HashSet S = new HashSet();
+        S.add(LSs.get(0));
+        Cs.addClient("Hitler", "Adolphe", "Allemagne", "0658759865", "SS@g.com", S);
 
         
     }

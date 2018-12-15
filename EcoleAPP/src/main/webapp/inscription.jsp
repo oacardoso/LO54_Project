@@ -1,3 +1,4 @@
+<%@page import="java.util.HashSet"%>
 <%@page import="fr.utbm.ecole.entity.Session"%>
 <%@page import="fr.utbm.ecole.service.SessionService"%>
 <!doctype html>
@@ -14,8 +15,48 @@
         <title>Inscription</title>
         <style>
             @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i|IBM+Plex+Sans+Condensed:400,400i|IBM+Plex+Sans:100,100i,400,400i,700,700i|IBM+Plex+Serif:400,400i|Slabo+27px');
-            td{
-                border: 1px solid black;
+            table {
+                font-family: "Times New Roman", Times, serif;
+                border: 2px solid #9E9E9E;
+                background-color: #EEEEEE;
+                width: 100%;
+                text-align: center;
+            }
+            table td, table th {
+                border: 1px solid #BABABA;
+                padding: 4px 4px;
+            }
+            table tbody td {
+                font-size: 13px;
+                color: #0700FF;
+            }
+            table tr:nth-child(even) {
+                background: #B3CBC3;
+            }
+            table thead {
+                background: #FFFFFF;
+                border-bottom: 3px solid #333333;
+            }
+            table thead th {
+                font-size: 15px;
+                font-weight: bold;
+                color: #000394;
+                text-align: center;
+                border-left: 2px solid #333333;
+            }
+            table thead th:first-child {
+                border-left: none;
+            }
+
+            table tfoot td {
+                font-size: 14px;
+            }
+
+            #tdid{
+                cursor:pointer;
+                display:block;
+                width:100%;
+                height:100%;
             }
         </style>
     </head>
@@ -71,42 +112,51 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <div class="col-lg-10">
-                        <table class="Tables_choix_sessions">
-                            <thead>
-                                <tr>
-                                    <th>CODE</th>
-                                    <th>Location</th>
-                                    <th>Date Début</th>
-                                    <th>Date Fin</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    SessionService Ses = new SessionService();
-                                    List<SessionService> LSes = Ses.listSessions(request.getParameter("code"));
-                                    // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
-                                    for (Iterator iterator1 = LSes.iterator(); iterator1.hasNext();) {
-                                        Session sessionn = (Session) iterator1.next();
-                                        // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
-                                        if(sessionn.getId()== Integer.parseInt(request.getParameter("id_session"))){
-                                %>
-                                <tr>
-                                    <td><%out.print(sessionn.getCourse().getCode()); %></td>
-                                    <td><% out.print(sessionn.getLocation().getCity());%></td>
-                                    <td><% out.print(sessionn.getStart_date());%></td>
-                                    <td><% out.print(sessionn.getEnd_date());%></td>
-                                    
-                                </tr> 
-                                <% }
+
+                    <table class="Tables_choix_sessions">
+                        <thead>
+                            <tr>
+                                <th>CODE</th>
+                                <th>Location</th>
+                                <th>Date Début</th>
+                                <th>Date Fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                Session c_ses = new Session();
+                                SessionService Ses = new SessionService();
+                                List<SessionService> LSes = Ses.listSessions(request.getParameter("code"));
+                                // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
+                                for (Iterator iterator1 = LSes.iterator(); iterator1.hasNext();) {
+                                    Session sessionn = (Session) iterator1.next();
+                                    // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
+                                    if (sessionn.getId() == Integer.parseInt(request.getParameter("id_session"))) {
+                                        c_ses = sessionn;
+                            %>
+                            <tr>
+                                <td><%out.print(sessionn.getCourse().getCode()); %></td>
+                                <td><% out.print(sessionn.getLocation().getCity());%></td>
+                                <td><% out.print(sessionn.getStart_date());%></td>
+                                <td><% out.print(sessionn.getEnd_date());%></td>
+
+                            </tr> 
+                            <% }
                                     }%>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                           <input type="textarea" hidden class="form-control" value="
+                                  <% 
+                                      HashSet Hs = new HashSet();
+                                 Hs.add(c_ses);
+                                 out.print(Hs);
+                                  %>
+                                   " id="textarea" required name="session">
+
                 </div>
             </div>
             <div class="form-group">
-                <button class="button" name="Inscrire" value="Enregistrer">Enregistrer</button>
+                <input type="submit" id="singlebutton" name="action_inscrire_sess" class="btn btn-success" value="Enregistrer">
             </div>
         </form>
     </body>
