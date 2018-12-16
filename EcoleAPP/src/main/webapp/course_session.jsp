@@ -63,44 +63,41 @@
                 <li><a href="/EcoleAPP">Course</a>
             </ul>
             <h2>Sessions pour le cours : <% out.print((String) request.getParameter("td")); %></h2>
-                    <table class="Table_des_cours">
-            <thead>
-                <tr>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Max People</th>
-                    <th>Location</th>
-                    <th>Code Course</th>
-                    
-                </tr>
-        </thead>
-        <tbody>
-            <%
-                SessionService Ses = new SessionService();
-                
-                List<SessionService> Sessions = Ses.listSessions( (String) request.getParameter("td"));
-                                    
+            <table class="Table_des_cours">
+                <thead>
+                    <tr>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Percentage</th>
+                        <th>Max People</th>
+                        <th>Location</th>
 
-                // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
-             for (Iterator iterator1 = Sessions.iterator(); iterator1.hasNext();) {
-                    Session sessionn = (Session) iterator1.next();
-                    int max = sessionn.getMax();
-                    
-                    
-                    // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
-            %>
-            <tr>
-                <td onclick="location.href = 'http://localhost:8080/EcoleAPP/inscription?id_session=<%out.print(sessionn.getId());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
-                <td><% out.print(sessionn.getEnd_date()); %></td>
-                <td><%out.print( (((float)Ses.numParticipants(1)/(float)max))*100 + "%");%></td>
-                <td><% out.print(max); %></td>
-                <td><% out.print(sessionn.getLocation().getCity()); %></td>
-                <td><% out.print(sessionn.getCourse().getCode()); %></td>
-                
-            </tr> 
-            <% }%>
-        </tbody>
-    </table>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        SessionService Ses = new SessionService();
+
+                        List<SessionService> Sessions = Ses.listSessions((String) request.getParameter("td"));
+
+                        // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
+                        for (Iterator iterator1 = Sessions.iterator(); iterator1.hasNext();) {
+                            Session sessionn = (Session) iterator1.next();
+                            int max = sessionn.getMax();
+
+                            // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
+                    %>
+                    <tr>
+                        <td onclick="location.href = 'http://localhost:8080/EcoleAPP/inscription?id_session=<%out.print(sessionn.getId());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
+                        <td><% out.print(sessionn.getEnd_date()); %></td>
+                        <td><%out.print((((float) Ses.numParticipants(1) / (float) max)) * 100 + "%");%></td>
+                        <td><% out.print(max); %></td>
+                        <td><% out.print(sessionn.getLocation().getCity()); %></td>
+
+                    </tr> 
+                    <% }%>
+                </tbody>
+            </table>
         </form>
     </body>
 </html>

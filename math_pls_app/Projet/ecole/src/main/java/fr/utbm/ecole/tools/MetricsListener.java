@@ -6,6 +6,7 @@
 package fr.utbm.ecole.tools;
 
 import com.codahale.metrics.MetricRegistry;
+
 import com.codahale.metrics.servlet.InstrumentedFilterContextListener;
 
 /**

@@ -108,11 +108,13 @@
                     if (request.getParameter("ville") != null) {
                         courses = Cs.listCoursesLoc(request.getParameter("ville"));
                     } 
-                    if (request.getParameter("date") != null) {
-
+                    if (request.getParameter("date") != null ) {
+                        String date = request.getParameter("date");
+                        if (date != ""){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                        Date d = sdf.parse(request.getParameter("date"));
+                        Date d = sdf.parse(date);
                         courses = Cs.listCourses(d);
+                        }
                     }
                     if (request.getParameter("mot_clef") != null) {
                         courses = Cs.listCourses(request.getParameter("mot_clef"));
