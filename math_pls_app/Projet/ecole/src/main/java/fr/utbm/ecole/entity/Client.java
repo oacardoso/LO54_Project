@@ -13,6 +13,7 @@ import java.util.Set;
  * @author mperrot
  */
 public class Client {
+
     private int id = -1;
     private String last_name = null;
     private String first_name = null;
@@ -23,7 +24,7 @@ public class Client {
 
     public Client() {
     }
-    
+
     public Client(String last_name, String first_name, String address, String phone, String email) {
         this.last_name = last_name;
         this.first_name = first_name;
@@ -35,7 +36,7 @@ public class Client {
     public int getId() {
         return id;
     }
-    
+
     public String getLast_name() {
         return last_name;
     }
@@ -55,7 +56,7 @@ public class Client {
     public String getEmail() {
         return email;
     }
-    
+
     public Set getSessions() {
         return sessions;
     }
@@ -63,7 +64,7 @@ public class Client {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
@@ -83,40 +84,31 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public void setSessions(Set sessions) {
         this.sessions = sessions;
     }
-    
-    public Set addSessions(Set sessions) {
-        Set f_sessions = new HashSet();
-        if (sessions != null && !sessions.isEmpty())
-        {
-            if (this.sessions != null && !this.sessions.isEmpty())
-            {
-                for(Object session : this.sessions)
-                {
-                    for(Object session_b : sessions)
-                    {
-                        if (((Session)session).getId() == ((Session)session_b).getId() )
-                        {
-                            f_sessions.add(session_b);
-                            sessions.remove(session_b);
-                            break;
-                        }
+
+    public boolean addSession(Session session) {
+        if (session != null) {
+            if (this.sessions != null) {
+                for (Object s : this.sessions) {
+                    if (((Session) s).getId() == session.getId()) {
+                        return false;
                     }
                 }
-                this.sessions.addAll(sessions);
+                this.sessions.add(session);
+            } else {
+                this.sessions = new HashSet();
+                this.sessions.add(session);
             }
-            else
-                this.sessions = sessions;
         }
-        return f_sessions;
+        return true;
     }
 
     @Override
     public String toString() {
         return "Client{" + "id=" + id + ", last_name=" + last_name + ", first_name=" + first_name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", sessions=" + sessions + '}';
     }
-    
+
 }

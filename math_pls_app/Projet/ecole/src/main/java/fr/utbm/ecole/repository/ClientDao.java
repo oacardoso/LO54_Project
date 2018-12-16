@@ -24,13 +24,13 @@ public class ClientDao {
     }
     
     /*Crée un client dans la base*/
-    public Integer addClient(String last_name, String first_name, String address, String phone, String email, Set sessions) {
+    public Integer addClient(String last_name, String first_name, String address, String phone, String email, fr.utbm.ecole.entity.Session ses) {
         
         Client cl = getClient(first_name, last_name);
         if (cl != null)
         {
             System.out.println("Le client " + first_name + " " + last_name + " existe déjà dans la base.");
-            addClientSession(cl, sessions);
+            addClientSession(cl, ses);
             return cl.getId();
         }
         
@@ -40,7 +40,7 @@ public class ClientDao {
             session.beginTransaction();
 
             Client client = new Client(last_name, first_name, address, phone, email);
-            client.setSessions(sessions);
+            client.setSessions(client.getSessions());
             clientID = (Integer) session.save(client);
 
             session.getTransaction().commit();
@@ -117,6 +117,7 @@ public class ClientDao {
             query.setParameter("lname", last_name);
             query.setParameter("fname", first_name);
             client = (Client) query.uniqueResult();
+            client.getSessions();
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -140,18 +141,15 @@ public class ClientDao {
     }
     
     /*Ajoute des sessions de cours à un client*/
-    public void addClientSession(Client client, Set sessions) {
+    public void addClientSession(Client client, fr.utbm.ecole.entity.Session ses) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             
-            Set f_sessions = client.addSessions(sessions);
-            if(!f_sessions.isEmpty())
+            Boolean res = client.addSession(ses);
+            if(res == false)
             {
-                for(Object s : f_sessions)
-                {
-                    System.out.println("Le client est déjà inscrit à la session du " + ((fr.utbm.ecole.entity.Session)s).getStart_date());
-                }
+                System.out.println("Le client est déjà inscrit à la session du " + ses.getStart_date());
             }
             
             session.update(client);
