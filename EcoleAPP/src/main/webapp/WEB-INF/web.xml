@@ -2,19 +2,8 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     
     <listener>
-        <listener-class>fr.utbm.ecole.tools.MetricsListener</listener-class>
+        <listener-class>fr.utbm.ecoleapp.metrics.MetricsListener</listener-class>
     </listener>
-    
-    <filter>
-        <filter-name>instrumentFilter</filter-name>
-        <filter-class>
-            com.codahale.metrics.servlet.InstrumentedFilter
-        </filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>instrumentFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
     
     <servlet>
         <servlet-name>inscription</servlet-name>
@@ -28,6 +17,16 @@
         <servlet-name>index</servlet-name>
         <servlet-class>fr.utbm.ecoleapp.servlet.index</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>metrics</servlet-name>
+        <servlet-class>com.codahale.metrics.servlets.MetricsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>metrics</servlet-name>
+        <url-pattern>/metrics/*</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>inscription</servlet-name>
         <url-pattern>/inscription</url-pattern>

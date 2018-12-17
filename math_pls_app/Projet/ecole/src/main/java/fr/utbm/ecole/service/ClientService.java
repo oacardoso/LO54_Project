@@ -9,11 +9,9 @@ import fr.utbm.ecole.entity.Client;
 import fr.utbm.ecole.entity.Session;
 import fr.utbm.ecole.repository.ClientDao;
 import java.util.List;
-import com.codahale.metrics.MetricRegistry;
 import static com.codahale.metrics.MetricRegistry.name;
 import com.codahale.metrics.Timer;
-import static fr.utbm.ecole.App.metrics;
-import static fr.utbm.ecole.tools.MetricsListener.METRIC_REGISTRY;
+import static fr.utbm.ecole.tools.MetricsRegistry.METRIC_REGISTRY;
 
 /**
  *
@@ -22,8 +20,8 @@ import static fr.utbm.ecole.tools.MetricsListener.METRIC_REGISTRY;
 public class ClientService {
 
     //A changer avec METRIC_REGISTRY
-    private final Timer addClient = metrics.timer(name(ClientService.class,"addClient"));
-    private final Timer listClient = metrics.timer(name(ClientService.class,"listClient"));
+    private final Timer addClient = METRIC_REGISTRY.timer(name(ClientService.class,"addClient"));
+    private final Timer listClient = METRIC_REGISTRY.timer(name(ClientService.class,"listClient"));
     
     
 

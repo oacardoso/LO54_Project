@@ -117,7 +117,8 @@ public class ClientDao {
             query.setParameter("lname", last_name);
             query.setParameter("fname", first_name);
             client = (Client) query.uniqueResult();
-            client.getSessions();
+            if(client != null)
+                client.getSessions();
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();

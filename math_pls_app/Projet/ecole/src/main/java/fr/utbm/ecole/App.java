@@ -10,12 +10,13 @@ import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import static com.codahale.metrics.MetricRegistry.name;
 import com.codahale.metrics.Timer;
+import fr.utbm.ecole.entity.Course;
 import fr.utbm.ecole.entity.Session;
 import fr.utbm.ecole.service.ClientService;
 import fr.utbm.ecole.service.CourseService;
 import fr.utbm.ecole.service.SessionService;
-import fr.utbm.ecole.tools.MetricsListener;
-import static fr.utbm.ecole.tools.MetricsListener.METRIC_REGISTRY;
+import fr.utbm.ecole.tools.MetricsRegistry;
+import static fr.utbm.ecole.tools.MetricsRegistry.METRIC_REGISTRY;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -35,14 +36,25 @@ public class App {
         
         startReport();
         
+        ClientService cs = new ClientService();
+        SessionService ss = new SessionService();
+        CourseService cc = new CourseService();
         
+        List c = cc.listCourses();
         
         for (int i=0; i<5; ++i)
         {
-            ClientService cs = new ClientService();
-            cs.listClients();
-            wait5Seconds();
+            cs.addClient("a", "a", "a", "a", "a", null);
+            waitNSeconds(i*10);
         }
+        
+        for (int i=0; i<c.size(); ++i)
+        {
+            ss.listSessions(((Course)c.get(i)).getCode());
+            waitNSeconds(i*5);
+        }
+        
+        waitNSeconds(1);
 
         /*startReport();
         Meter requests = metrics.meter("requests");
@@ -76,9 +88,9 @@ public class App {
         reporter.start(1, TimeUnit.SECONDS);
     }
 
-    static void wait5Seconds() {
+    static void waitNSeconds(int n) {
         try {
-            Thread.sleep(1 * 1000);
+            Thread.sleep(n * 1000);
         } catch (InterruptedException e) {
         }
     }
