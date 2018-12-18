@@ -48,7 +48,6 @@
             table.Table_des_cours thead th:first-child {
                 border-left: none;
             }
-
             table.Table_des_cours tfoot td {
                 font-size: 14px;
             }
@@ -77,14 +76,11 @@
                 <tbody>
                     <%
                         SessionService Ses = new SessionService();
-
                         List<SessionService> Sessions = Ses.listSessions((String) request.getParameter("td"));
-
                         // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
                         for (Iterator iterator1 = Sessions.iterator(); iterator1.hasNext();) {
                             Session sessionn = (Session) iterator1.next();
                             int max = sessionn.getMax();
-
                             // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
                     %>
                     <tr>
@@ -93,7 +89,6 @@
                         <td><%out.print((((float) Ses.numParticipants(sessionn.getId()) / (float) max)) * 100 + "%");%></td>
                         <td><% out.print(max); %></td>
                         <td><% out.print(sessionn.getLocation().getCity()); %></td>
-
                     </tr> 
                     <% }%>
                 </tbody>

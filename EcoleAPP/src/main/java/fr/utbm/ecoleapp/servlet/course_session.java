@@ -35,9 +35,6 @@ public class course_session extends HttpServlet {
             try {
 
             } catch (Exception ex) {
-                if (request.getParameter("Inscrire").equals("Enregistrer")) {
-
-                }
             }
         }
     }

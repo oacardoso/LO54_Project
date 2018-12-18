@@ -31,13 +31,7 @@ public class index extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("/course_session.jsp").forward(request, response);
-            try{
-                out.print("Salut");
-            }
-            catch(Exception ex){
-                
-            }
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 

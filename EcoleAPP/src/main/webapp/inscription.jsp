@@ -66,7 +66,39 @@
             <li><a href="course_session">Course Session</a>
             <li><a href="inscription">Course Inscription</a>
         </ul>
-        <form name="form1" method="post" class="form-horizontal col-lg-6" >
+        <table class="Tables_choix_sessions">
+            <thead>
+                <tr>
+                    <th>CODE</th>
+                    <th>Location</th>
+                    <th>Date Debut</th>
+                    <th>Date Fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    Session c_ses = new Session();
+                    SessionService Ses = new SessionService();
+                    List<SessionService> LSes = Ses.listSessions(request.getParameter("code"));
+                    // si la le buton trier ? ?t? clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
+                    for (Iterator iterator1 = LSes.iterator(); iterator1.hasNext();) {
+                        Session sessionn = (Session) iterator1.next();
+                        // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
+                        if (sessionn.getId() == Integer.parseInt(request.getParameter("id_session"))) {
+                            c_ses = sessionn;
+                %>
+                <tr>
+                    <td><%out.print(sessionn.getCourse().getCode()); %></td>
+                    <td><% out.print(sessionn.getLocation().getCity());%></td>
+                    <td><% out.print(sessionn.getStart_date());%></td>
+                    <td><% out.print(sessionn.getEnd_date());%></td>
+
+                </tr> 
+                <% }
+                                }%>
+            </tbody>
+        </table>
+        <form name="form1" class="form-horizontal col-lg-6"  action="inscription" method="POST">
             <div class="form-group">
                 <h1>Inscription</h1>
             </div>
@@ -80,7 +112,7 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <label for="textarea" class="col-lg-2 control-label">Prénom : </label>
+                    <label for="textarea" class="col-lg-2 control-label">Prenom : </label>
                     <div class="col-lg-10">
                         <input type="textarea" class="form-control" id="textarea" required name="firstname">
                     </div>
@@ -96,7 +128,7 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <label for="textarea" class="col-lg-2 control-label">Numéro : </label>
+                    <label for="textarea" class="col-lg-2 control-label">Numero : </label>
                     <div class="col-lg-10">
                         <input type="textarea" class="form-control" id="textarea" required name="number">
                     </div>
@@ -113,49 +145,13 @@
             <div class="row">
                 <div class="form-group">
 
-                    <table class="Tables_choix_sessions">
-                        <thead>
-                            <tr>
-                                <th>CODE</th>
-                                <th>Location</th>
-                                <th>Date Début</th>
-                                <th>Date Fin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                                Session c_ses = new Session();
-                                SessionService Ses = new SessionService();
-                                List<SessionService> LSes = Ses.listSessions(request.getParameter("code"));
-                                for (Iterator iterator1 = LSes.iterator(); iterator1.hasNext();) {
-                                    Session sessionn = (Session) iterator1.next();
-                                    // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
-                                    if (sessionn.getId() == Integer.parseInt(request.getParameter("id_session"))) {
-                                        c_ses = sessionn;
-                            %>
-                            <tr>
-                                <td><%out.print(sessionn.getCourse().getCode()); %></td>
-                                <td><% out.print(sessionn.getLocation().getCity());%></td>
-                                <td><% out.print(sessionn.getStart_date());%></td>
-                                <td><% out.print(sessionn.getEnd_date());%></td>
 
-                            </tr> 
-                            <% }
-                                    }%>
-                        </tbody>
-                    </table>
-                           <input type="textarea" hidden class="form-control" value="
-                                  <% 
-                                      HashSet Hs = new HashSet();
-                                 Hs.add(c_ses);
-                                 out.print(Hs);
-                                  %>
-                                   " id="textarea" required name="session">
+                    <input type="textarea" hidden class="form-control" value="<%out.print(request.getParameter("id_session"));%>" hidden id="textarea" required name="session">
 
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" id="singlebutton" name="action_inscrire_sess" class="btn btn-success" value="Enregistrer">
+                <input type="submit" id="singlebutton" name="Inscrire" class="btn btn-success" value="Enregistrer">
             </div>
         </form>
     </body>

@@ -46,11 +46,9 @@
             table.Table_des_cours thead th:first-child {
                 border-left: none;
             }
-
             table.Table_des_cours tfoot td {
                 font-size: 14px;
             }
-
             #tdid{
                 cursor:pointer;
                 display:block;
@@ -104,34 +102,31 @@
             <tbody>
                 <%
                     CourseService Cs = new CourseService();
-                    List<CourseService> courses = null;
+                    List<CourseService> courses = Cs.listCourses("");
                     if (request.getParameter("ville") != null) {
                         courses = Cs.listCoursesLoc(request.getParameter("ville"));
-                    } else if (request.getParameter("date") != null) {
+                    } 
+                    if (request.getParameter("date") != null ) {
                         String date = request.getParameter("date");
-                        if (date != "") {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                            Date d = sdf.parse(date);
-                            courses = Cs.listCourses(d);
+                        if (date != ""){
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                        Date d = sdf.parse(date);
+                        courses = Cs.listCourses(d);
                         }
-                    } else if (request.getParameter("mot_clef") != null) {
-                        courses = Cs.listCourses(request.getParameter("mot_clef"));
-                    } else {
-                        courses = Cs.listCourses();
                     }
-
-                    if (courses != null) {
-                        // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
-                        for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                            Course course = (Course) iterator1.next();
+                    if (request.getParameter("mot_clef") != null) {
+                        courses = Cs.listCourses(request.getParameter("mot_clef"));
+                    }
+                    // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
+                    for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
+                        Course course = (Course) iterator1.next();
                 %>
                 <tr>
                     <td onclick="location.href = 'http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
                     <td><% out.print(course.getTitle()); %></td>
 
                 </tr> 
-                <% }
-                    }%>
+                <% }%>
             </tbody>
         </table>
     </body>
