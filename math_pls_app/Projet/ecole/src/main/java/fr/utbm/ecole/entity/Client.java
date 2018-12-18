@@ -25,12 +25,15 @@ public class Client {
     public Client() {
     }
 
-    public Client(String last_name, String first_name, String address, String phone, String email) {
+    public Client(String last_name, String first_name, String address, String phone, String email, Session ses) {
         this.last_name = last_name;
         this.first_name = first_name;
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.sessions = new HashSet();
+        if (ses != null)
+            sessions.add(ses);
     }
 
     public int getId() {

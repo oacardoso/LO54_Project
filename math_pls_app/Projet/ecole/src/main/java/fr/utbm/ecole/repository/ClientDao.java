@@ -39,10 +39,11 @@ public class ClientDao {
         try {
             session.beginTransaction();
 
-            Client client = new Client(last_name, first_name, address, phone, email);
-            client.setSessions(client.getSessions());
+            Client client = new Client(last_name, first_name, address, phone, email, ses);
             clientID = (Integer) session.save(client);
-
+            session.getTransaction().commit();
+            
+            session.update(client);
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -117,8 +118,6 @@ public class ClientDao {
             query.setParameter("lname", last_name);
             query.setParameter("fname", first_name);
             client = (Client) query.uniqueResult();
-            if(client != null)
-                client.getSessions();
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -150,7 +149,7 @@ public class ClientDao {
             Boolean res = client.addSession(ses);
             if(res == false)
             {
-                System.out.println("Le client est déjà inscrit à la session du " + ses.getStart_date());
+                System.out.println("Le client est déjà inscrit à la session du " + ses.getStart_date() + " pour le cours " + ses.getCourse().getCode());
             }
             
             session.update(client);

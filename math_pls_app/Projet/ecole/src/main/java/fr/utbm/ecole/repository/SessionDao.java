@@ -102,6 +102,37 @@ public class SessionDao {
         return sess;
     }
     
+    /*Renvoie une Session de la base selon id*/
+    public fr.utbm.ecole.entity.Session getSession(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        fr.utbm.ecole.entity.Session ses = null;
+        try {
+            session.beginTransaction();
+            Query query = session.createQuery("FROM Session S where S.id = :id ");
+            query.setParameter("id", id);
+            ses = (fr.utbm.ecole.entity.Session) query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            if (session.getTransaction() != null) {
+                try {
+                    session.getTransaction().rollback();
+                } catch (HibernateException he2) {
+                    he2.printStackTrace();
+                }
+            }
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (HibernateException he3) {
+                    he3.printStackTrace();
+                }
+            }
+        }   
+        return ses;
+    }
+    
     /*Donne le nombre de participants à une session donnée*/
     public long numParticipants(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();

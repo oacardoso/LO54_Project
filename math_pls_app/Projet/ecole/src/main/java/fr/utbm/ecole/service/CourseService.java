@@ -5,7 +5,10 @@
  */
 package fr.utbm.ecole.service;
 
+import static com.codahale.metrics.MetricRegistry.name;
+import com.codahale.metrics.Timer;
 import fr.utbm.ecole.repository.CourseDao;
+import static fr.utbm.ecole.tools.MetricsRegistry.METRIC_REGISTRY;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +17,13 @@ import java.util.List;
  * @author mperrot
  */
 public class CourseService {
+    
+    private final Timer listCourses = METRIC_REGISTRY.timer(name(CourseService.class,"listCourses"));
 
     public CourseService() {
     }
     
-    /*Nouveau un cours*/
+    /*Nouveau cours*/
     public String addCourse(String code, String titre) {
         CourseDao dao = new CourseDao();
         return dao.addCourse(code, titre);
@@ -26,8 +31,13 @@ public class CourseService {
 
     /*Liste des cours*/
     public List listCourses() {
-        CourseDao dao = new CourseDao();
+        final Timer.Context context = listCourses.time();
+        try {
+            CourseDao dao = new CourseDao();
         return dao.listCourses();
+        } finally {
+            context.stop();
+        }
     }
     
     /*Liste les cours selon un mot du titre*/

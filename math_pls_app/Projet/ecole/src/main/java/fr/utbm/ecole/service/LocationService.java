@@ -5,7 +5,10 @@
  */
 package fr.utbm.ecole.service;
 
+import static com.codahale.metrics.MetricRegistry.name;
+import com.codahale.metrics.Timer;
 import fr.utbm.ecole.repository.LocationDao;
+import static fr.utbm.ecole.tools.MetricsRegistry.METRIC_REGISTRY;
 import java.util.List;
 
 /**
@@ -14,12 +17,19 @@ import java.util.List;
  */
 public class LocationService {
 
+    private final Timer listLocations = METRIC_REGISTRY.timer(name(CourseService.class, "listLocations"));
+
     public LocationService() {
     }
-    
+
     /*Liste les locations*/
     public List listLocations() {
-        LocationDao dao = new LocationDao();
-        return dao.listLocations();
+        final Timer.Context context = listLocations.time();
+        try {
+            LocationDao dao = new LocationDao();
+            return dao.listLocations();
+        } finally {
+            context.stop();
+        }
     }
 }

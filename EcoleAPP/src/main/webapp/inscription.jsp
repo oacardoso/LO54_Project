@@ -66,7 +66,7 @@
             <li><a href="course_session">Course Session</a>
             <li><a href="inscription">Course Inscription</a>
         </ul>
-        <form name="form1" class="form-horizontal col-lg-6"  action="/EcoleAPP" method="POST">
+        <form name="form1" class="form-horizontal col-lg-6" method="post">
             <div class="form-group">
                 <h1>Inscription</h1>
             </div>
@@ -127,7 +127,6 @@
                                 Session c_ses = new Session();
                                 SessionService Ses = new SessionService();
                                 List<SessionService> LSes = Ses.listSessions(request.getParameter("code"));
-                                // si la le buton trier à été clique, on passe la date, sinon on passe null, pour returner tout les session sans trie
                                 for (Iterator iterator1 = LSes.iterator(); iterator1.hasNext();) {
                                     Session sessionn = (Session) iterator1.next();
                                     // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit

@@ -104,31 +104,34 @@
             <tbody>
                 <%
                     CourseService Cs = new CourseService();
-                    List<CourseService> courses = Cs.listCourses("");
+                    List<CourseService> courses = null;
                     if (request.getParameter("ville") != null) {
                         courses = Cs.listCoursesLoc(request.getParameter("ville"));
-                    } 
-                    if (request.getParameter("date") != null ) {
+                    } else if (request.getParameter("date") != null) {
                         String date = request.getParameter("date");
-                        if (date != ""){
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                        Date d = sdf.parse(date);
-                        courses = Cs.listCourses(d);
+                        if (date != "") {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                            Date d = sdf.parse(date);
+                            courses = Cs.listCourses(d);
                         }
-                    }
-                    if (request.getParameter("mot_clef") != null) {
+                    } else if (request.getParameter("mot_clef") != null) {
                         courses = Cs.listCourses(request.getParameter("mot_clef"));
+                    } else {
+                        courses = Cs.listCourses();
                     }
-                    // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
-                    for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                        Course course = (Course) iterator1.next();
+
+                    if (courses != null) {
+                        // si la le buton trier à été clique, on passe la date ou le mot cle, sinon on passe null, pour returner tout les session sans trie
+                        for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
+                            Course course = (Course) iterator1.next();
                 %>
                 <tr>
                     <td onclick="location.href = 'http://localhost:8080/EcoleAPP/course_session?td=<%out.print(course.getCode());%>'" id="tdid" > <% out.print(course.getCode()); %> </td>
                     <td><% out.print(course.getTitle()); %></td>
 
                 </tr> 
-                <% }%>
+                <% }
+                    }%>
             </tbody>
         </table>
     </body>

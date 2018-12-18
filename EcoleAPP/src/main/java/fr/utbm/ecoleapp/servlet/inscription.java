@@ -5,6 +5,7 @@
  */
 package fr.utbm.ecoleapp.servlet;
 
+import fr.utbm.ecole.entity.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import fr.utbm.ecole.service.ClientService;
+import fr.utbm.ecole.service.SessionService;
+import java.util.Enumeration;
 
 /**
  *
@@ -32,19 +35,22 @@ public class inscription extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("/inscription.jsp").forward(request,response); 
+            request.getRequestDispatcher("/inscription.jsp").forward(request, response);
             try {
-                if (request.getParameter("Inscrire").equals("Enregistrer")) {
+                if (request.getParameter("action_inscrire_sess").equals("Enregistrer")) {
                     String lastname = request.getParameter("lastname");
                     String firstname = request.getParameter("firstname");
                     String mail = request.getParameter("mail");
                     String number = request.getParameter("number");
                     String adress = request.getParameter("adress");
+                    int session_id = Integer.parseInt(request.getParameter("id_session"));
                     ClientService cl = new ClientService();
-                    cl.addClient(lastname, firstname, adress, number, mail, null);
+                    SessionService ss = new SessionService();
+                    Session session = ss.getSession(session_id);
+                    cl.addClient(lastname, firstname, adress, number, mail, session);
                 }
             } catch (Exception ex) {
-                
+
             }
 
         }

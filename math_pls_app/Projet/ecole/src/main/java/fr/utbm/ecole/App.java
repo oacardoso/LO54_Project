@@ -30,11 +30,11 @@ import java.util.logging.Filter;
  */
 public class App {
 
-    public static final MetricRegistry metrics = new MetricRegistry();
+    public static final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
 
     public static void main(String args[]) {
         
-        startReport();
+        /*startReport();
         
         ClientService cs = new ClientService();
         SessionService ss = new SessionService();
@@ -54,7 +54,7 @@ public class App {
             waitNSeconds(i*5);
         }
         
-        waitNSeconds(1);
+        waitNSeconds(1);*/
 
         /*startReport();
         Meter requests = metrics.meter("requests");
@@ -73,14 +73,15 @@ public class App {
 
         wait5Seconds();*/
         
-        /*SessionService ss = new SessionService();
-        List s = ss.listSessions("LO54");
+        SessionService ss = new SessionService();
+        Session ses = ss.getSession(9);
+        /*List s = ss.listSessions("LO54");
         ClientService css = new ClientService();
-        css.addClient("test", "test", "blabla", "0000000000", "kk@com", (Session)s.get(0));*/
+        css.addClient("test", "test", "blabla", "0000000000", "kk@com", (Session)s.get(1));*/
 
     }
 
-    static void startReport() {
+   /*static void startReport() {
         ConsoleReporter reporter = ConsoleReporter.forRegistry(metrics)
                 .convertRatesTo(TimeUnit.SECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
@@ -93,5 +94,5 @@ public class App {
             Thread.sleep(n * 1000);
         } catch (InterruptedException e) {
         }
-    }
+    }*/
 }

@@ -90,7 +90,7 @@
                     <tr>
                         <td onclick="location.href = 'http://localhost:8080/EcoleAPP/inscription?id_session=<%out.print(sessionn.getId());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
                         <td><% out.print(sessionn.getEnd_date()); %></td>
-                        <td><%out.print((((float) Ses.numParticipants(1) / (float) max)) * 100 + "%");%></td>
+                        <td><%out.print((((float) Ses.numParticipants(sessionn.getId()) / (float) max)) * 100 + "%");%></td>
                         <td><% out.print(max); %></td>
                         <td><% out.print(sessionn.getLocation().getCity()); %></td>
 

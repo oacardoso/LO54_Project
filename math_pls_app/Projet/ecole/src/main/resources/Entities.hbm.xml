@@ -14,7 +14,7 @@
         <property name="address" column="ADDRESSE" not-null="true"/>
         <property name="phone" column="PHONE" not-null="true"/>
         <property name="email" column="EMAIL"/>
-        <set table="PARTICIPE" name="sessions">
+        <set table="PARTICIPE" name="sessions" lazy="false">
             <key column="CLIENT_ID"/>
             <many-to-many class="Session" column="COURSE_SESSION_ID"/>
         </set>
