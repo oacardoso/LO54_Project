@@ -66,7 +66,7 @@
             <li><a href="course_session">Course Session</a>
             <li><a href="inscription">Course Inscription</a>
         </ul>
-        <form name="form1" class="form-horizontal col-lg-6" method="post">
+        <form name="form1" method="post" class="form-horizontal col-lg-6" >
             <div class="form-group">
                 <h1>Inscription</h1>
             </div>

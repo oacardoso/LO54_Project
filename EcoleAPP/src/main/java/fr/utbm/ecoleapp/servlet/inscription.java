@@ -35,9 +35,9 @@ public class inscription extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("/inscription.jsp").forward(request, response);
-            try {
-                if (request.getParameter("action_inscrire_sess").equals("Enregistrer")) {
+            if (request.getParameter("action_inscrire_sess")!=null) {
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                try {
                     String lastname = request.getParameter("lastname");
                     String firstname = request.getParameter("firstname");
                     String mail = request.getParameter("mail");
@@ -48,9 +48,13 @@ public class inscription extends HttpServlet {
                     SessionService ss = new SessionService();
                     Session session = ss.getSession(session_id);
                     cl.addClient(lastname, firstname, adress, number, mail, session);
-                }
-            } catch (Exception ex) {
+                } catch (Exception ex) {
 
+                }
+            }
+            else
+            {
+                request.getRequestDispatcher("/inscription.jsp").forward(request, response);
             }
 
         }

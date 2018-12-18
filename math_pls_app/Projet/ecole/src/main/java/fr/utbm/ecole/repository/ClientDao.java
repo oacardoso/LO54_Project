@@ -34,16 +34,12 @@ public class ClientDao {
             return cl.getId();
         }
         
+        Client client = new Client(last_name, first_name, address, phone, email);
         Session session = HibernateUtil.getSessionFactory().openSession();
         Integer clientID = null;
         try {
             session.beginTransaction();
-
-            Client client = new Client(last_name, first_name, address, phone, email, ses);
             clientID = (Integer) session.save(client);
-            session.getTransaction().commit();
-            
-            session.update(client);
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -63,6 +59,7 @@ public class ClientDao {
                 }
             }
         }
+        addClientSession(client, ses);
         return clientID;
     }
 
