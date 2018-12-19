@@ -157,7 +157,7 @@
 
 
                             " id="t2did" ><% out.print(sessionn.getStart_date()); %>
-                            <span class="popuptext" id="myPopup"> Vous ne pouvez pas vous inscrire car le nombre de participant maximum est atteint.</span>
+                            <span class="popuptext" id="myPopup"> Vous ne pouvez pas vous inscrire car le nombre de participants maximum est atteint</span>
                         </td>
                         <td><% out.print(sessionn.getEnd_date()); %></td>
                             <td><%out.print(Math.round(pourcentage) + "%");%></td>

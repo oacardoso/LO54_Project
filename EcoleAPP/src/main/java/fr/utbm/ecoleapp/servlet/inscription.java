@@ -13,13 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import fr.utbm.ecole.service.ClientService;
 import fr.utbm.ecole.service.SessionService;
-import javax.servlet.RequestDispatcher;
+import com.codahale.metrics.Timer;
+import static com.codahale.metrics.MetricRegistry.name;
+import static fr.utbm.ecoleapp.metrics.MetricsListener.METRIC_REGISTRY;
 
 /**
  *
  * @author User
  */
 public class inscription extends HttpServlet {
+
+    private final Timer processForm = METRIC_REGISTRY.timer(name(inscription.class, "processForm"));
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,17 +42,22 @@ public class inscription extends HttpServlet {
             if (request.getParameter("Inscrire") != null) {
                 switch (request.getParameter("Inscrire")) {
                     case "Enregistrer": {
-                        String lastname = request.getParameter("lastname");
-                        String firstname = request.getParameter("firstname");
-                        String mail = request.getParameter("mail");
-                        String number = request.getParameter("number");
-                        String adress = request.getParameter("adress");
-                        int idSession = Integer.parseInt(request.getParameter("session"));
-                        ClientService cl = new ClientService();
-                        SessionService Ses = new SessionService();
-                        cl.addClient(lastname, firstname, adress, number, mail, Ses.getSession(idSession));
-                        response.sendRedirect("/EcoleAPP/");
-                        return;
+                        final Timer.Context context = processForm.time();
+                        try {
+                            String lastname = request.getParameter("lastname");
+                            String firstname = request.getParameter("firstname");
+                            String mail = request.getParameter("mail");
+                            String number = request.getParameter("number");
+                            String adress = request.getParameter("adress");
+                            int idSession = Integer.parseInt(request.getParameter("session"));
+                            ClientService cl = new ClientService();
+                            SessionService Ses = new SessionService();
+                            cl.addClient(lastname, firstname, adress, number, mail, Ses.getSession(idSession));
+                            response.sendRedirect("/EcoleAPP/");
+                            return;
+                        } finally {
+                            context.stop();
+                        }
                     }
                     case "Accueil":
                         response.sendRedirect("/EcoleAPP/");

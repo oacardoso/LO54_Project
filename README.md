@@ -1,6 +1,6 @@
 # LO54_Project
 
-Pouur lancer l'application :
+Pour lancer l'application :
 1) Charger le dump présent dans le dossier avec une base de donnée MySQL
 Depuis NetBeans
 2) Importer les projets ecole et EcoleAPP

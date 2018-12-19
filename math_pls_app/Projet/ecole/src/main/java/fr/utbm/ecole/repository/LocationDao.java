@@ -5,9 +5,7 @@
  */
 package fr.utbm.ecole.repository;
 
-import fr.utbm.ecole.entity.Location;
 import fr.utbm.ecole.tools.HibernateUtil;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

@@ -109,7 +109,7 @@
                     if (request.getParameter("date") != null ) {
                         String date = request.getParameter("date");
                         if (date != ""){
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date d = sdf.parse(date);
                         courses = Cs.listCourses(d);
                         }
