@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `ecole` /*!40100 DEFAULT CHARACTER SET utf8mb4 CO
 USE `ecole`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: localhost    Database: ecole
+-- Host: 127.0.0.1    Database: ecole
 -- ------------------------------------------------------
 -- Server version	8.0.13
 
@@ -18,27 +18,27 @@ USE `ecole`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `location`
+-- Table structure for table `course`
 --
 
-DROP TABLE IF EXISTS `location`;
+DROP TABLE IF EXISTS `course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `location` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `CITY` varchar(128) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `course` (
+  `CODE` varchar(4) NOT NULL,
+  `TITLE` varchar(128) NOT NULL,
+  PRIMARY KEY (`CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `location`
+-- Dumping data for table `course`
 --
 
-LOCK TABLES `location` WRITE;
-/*!40000 ALTER TABLE `location` DISABLE KEYS */;
-INSERT INTO `location` VALUES (1,'BELFORTZOO'),(2,'PARIS'),(3,'DIJON'),(4,'STRASBOURG'),(5,'HAWAI');
-/*!40000 ALTER TABLE `location` ENABLE KEYS */;
+LOCK TABLES `course` WRITE;
+/*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` VALUES ('AG51','Algorithmiques avancées'),('BD50','Conception des bases de données'),('CC02','Culture et société asiatique'),('EE01','Europe'),('GE02','Evaluation de la performance'),('GE08','Contrôle de gestion'),('IA51','Artificial intelligence'),('IN51','Analyse et traitement du signal'),('IN52','Traitement et analyse d\'images numériques'),('LE03','Anglais'),('LO54','Java enterprises'),('LS03','Espagnol'),('MI52','Systèmes pour l\'informatique embarquée'),('MT51','Mathématiques pour l\'image'),('SM57','Technologie des systèmes embarqués'),('VI50','Vision et réalité virtuelle');
+/*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-13 18:40:52
+-- Dump completed on 2018-12-19 12:18:33

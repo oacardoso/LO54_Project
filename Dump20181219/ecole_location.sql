@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `ecole` /*!40100 DEFAULT CHARACTER SET utf8mb4 CO
 USE `ecole`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: localhost    Database: ecole
+-- Host: 127.0.0.1    Database: ecole
 -- ------------------------------------------------------
 -- Server version	8.0.13
 
@@ -18,27 +18,27 @@ USE `ecole`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `course`
+-- Table structure for table `location`
 --
 
-DROP TABLE IF EXISTS `course`;
+DROP TABLE IF EXISTS `location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `course` (
-  `CODE` varchar(4) NOT NULL,
-  `TITLE` varchar(128) NOT NULL,
-  PRIMARY KEY (`CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `location` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CITY` varchar(128) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `course`
+-- Dumping data for table `location`
 --
 
-LOCK TABLES `course` WRITE;
-/*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES ('EE01','Europe'),('ER25','chepa'),('GE02','Gestion'),('IF41','chepa2'),('IN51','math '),('IN52','math2'),('LO54','Java enterprises'),('PJ53','lavande'),('SM57','ene2');
-/*!40000 ALTER TABLE `course` ENABLE KEYS */;
+LOCK TABLES `location` WRITE;
+/*!40000 ALTER TABLE `location` DISABLE KEYS */;
+INSERT INTO `location` VALUES (1,'BELFORT'),(2,'PARIS'),(3,'SEVENANS'),(4,'MONTBELIARD'),(5,'HAWAI');
+/*!40000 ALTER TABLE `location` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-13 18:40:49
+-- Dump completed on 2018-12-19 12:18:35

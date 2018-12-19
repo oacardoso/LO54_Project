@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `ecole` /*!40100 DEFAULT CHARACTER SET utf8mb4 CO
 USE `ecole`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: localhost    Database: ecole
+-- Host: 127.0.0.1    Database: ecole
 -- ------------------------------------------------------
 -- Server version	8.0.13
 
@@ -41,7 +41,6 @@ CREATE TABLE `participe` (
 
 LOCK TABLES `participe` WRITE;
 /*!40000 ALTER TABLE `participe` DISABLE KEYS */;
-INSERT INTO `participe` VALUES (1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,4),(8,4),(9,5),(10,5),(11,6),(29,5),(29,7);
 /*!40000 ALTER TABLE `participe` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-13 18:40:50
+-- Dump completed on 2018-12-19 12:18:34
