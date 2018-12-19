@@ -31,9 +31,14 @@ public class course_session extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("/course_session.jsp").forward(request, response);
             try {
-
+                if (request.getParameter("Inscrire") != null) {
+                    if (request.getParameter("Inscrire").equals("Accueil")) {
+                        response.sendRedirect("/EcoleAPP/");
+                    }
+                } else {
+                    request.getRequestDispatcher("/course_session.jsp").forward(request, response);
+                }
             } catch (Exception ex) {
             }
         }

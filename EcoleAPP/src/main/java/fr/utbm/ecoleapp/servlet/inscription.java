@@ -36,18 +36,32 @@ public class inscription extends HttpServlet {
 
         try {
             if (request.getParameter("Inscrire") != null) {
-                if (request.getParameter("Inscrire").equals("Enregistrer")) {
-                    String lastname = request.getParameter("lastname");
-                    String firstname = request.getParameter("firstname");
-                    String mail = request.getParameter("mail");
-                    String number = request.getParameter("number");
-                    String adress = request.getParameter("adress");
-                    int idSession = Integer.parseInt(request.getParameter("session"));
-                    ClientService cl = new ClientService();
-                    SessionService Ses = new SessionService();
-                    cl.addClient(lastname, firstname, adress, number, mail, Ses.getSession(idSession));
-                    response.sendRedirect("index");
-                    return;
+                switch (request.getParameter("Inscrire")) {
+                    case "Enregistrer": {
+                        String lastname = request.getParameter("lastname");
+                        String firstname = request.getParameter("firstname");
+                        String mail = request.getParameter("mail");
+                        String number = request.getParameter("number");
+                        String adress = request.getParameter("adress");
+                        int idSession = Integer.parseInt(request.getParameter("session"));
+                        ClientService cl = new ClientService();
+                        SessionService Ses = new SessionService();
+                        cl.addClient(lastname, firstname, adress, number, mail, Ses.getSession(idSession));
+                        response.sendRedirect("/EcoleAPP/");
+                        return;
+                    }
+                    case "Accueil":
+                        response.sendRedirect("/EcoleAPP/");
+                        break;
+                    case "Course session": {
+                        SessionService Ses = new SessionService();
+                        int idSession = Integer.parseInt(request.getParameter("session"));
+                        String course = Ses.getSession(idSession).getCourse().getCode();
+                        response.sendRedirect("/EcoleAPP/course_session?td=" + course);
+                        break;
+                    }
+                    default:
+                        break;
                 }
             } else {
                 try (PrintWriter out = response.getWriter()) {

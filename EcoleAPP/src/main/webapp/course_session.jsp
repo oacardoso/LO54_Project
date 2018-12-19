@@ -51,16 +51,72 @@
             table.Table_des_cours tfoot td {
                 font-size: 14px;
             }
+            .popup {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            /* The actual popup (appears on top) */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 160px;
+                background-color: #555;
+                color: #fff;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                left: 50%;
+                margin-left: -80px;
+            }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+            /* Toggle this class when clicking on the popup container (hide and show the popup) */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s
+            }
+
+            /* Add animation (fade in the popup) */
+            @-webkit-keyframes fadeIn {
+                from {opacity: 0;}
+                to {opacity: 1;}
+            }
+
+            @keyframes fadeIn {
+                from {opacity: 0;}
+                to {opacity:1 ;}
+            }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Liste des Sessions</title>
+        <script>
+            // When the user clicks on <div>, open the popup
+            function myFunction() {
+                var popup = document.getElementById("myPopup");
+                popup.classList.toggle("show");
+            }
+
+        </script>
     </head>
     <body>
         <form>
             <h1> Menu</h1>
-            <ul class="navbar">
-                <li><a href="/EcoleAPP">Course</a>
-            </ul>
             <h2>Sessions pour le cours : <% out.print((String) request.getParameter("td")); %></h2>
             <table class="Table_des_cours">
                 <thead>
@@ -83,8 +139,25 @@
                             int max = sessionn.getMax();
                             // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
                     %>
+
                     <tr>
-                        <td onclick="location.href = 'http://localhost:8080/EcoleAPP/inscription?id_session=<%out.print(sessionn.getId());%>&code=<%out.print(sessionn.getCourse().getCode());%>'" id="t2did" ><% out.print(sessionn.getStart_date()); %></td>
+                        <td class="popup" style="cursor:pointer;display:block;width:100%;height:100%;" onclick="
+                            <%
+                                if (sessionn.getMax() == Ses.numParticipants(sessionn.getId())) {
+                            %>
+                                myFunction();
+                            <%
+                            } else {
+                            %>
+                                location.href = 'http://localhost:8080/EcoleAPP/inscription?id_session=<%out.print(sessionn.getId());%>&code=<%out.print(sessionn.getCourse().getCode());%>';
+                            <%
+                                }
+                            %>
+
+
+                            " id="t2did" ><% out.print(sessionn.getStart_date()); %>
+                            <span class="popuptext" id="myPopup"> Vous ne pouvez pas vous inscrire car le nombre de participant maximum est atteint.</span>
+                        </td>
                         <td><% out.print(sessionn.getEnd_date()); %></td>
                         <td><%out.print((((float) Ses.numParticipants(sessionn.getId()) / (float) max)) * 100 + "%");%></td>
                         <td><% out.print(max); %></td>
@@ -93,6 +166,10 @@
                     <% }%>
                 </tbody>
             </table>
+        </form>
+                
+        <form name="form2" class="form-horizontal col-lg-6"  action="course_session" method="POST">
+            <input type="submit" id="secondbutton" name="Inscrire" class="btn btn-success" value="Accueil">
         </form>
     </body>
 </html>

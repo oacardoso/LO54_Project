@@ -61,11 +61,6 @@
         </style>
     </head>
     <body>
-        <ul class="navbar">
-            <li><a href="/EcoleAPP">Course</a>
-            <li><a href="course_session">Course Session</a>
-            <li><a href="inscription">Course Inscription</a>
-        </ul>
         <table class="Tables_choix_sessions">
             <thead>
                 <tr>
@@ -95,7 +90,7 @@
 
                 </tr> 
                 <% }
-                                }%>
+                    }%>
             </tbody>
         </table>
         <form name="form1" class="form-horizontal col-lg-6"  action="inscription" method="POST">
@@ -144,15 +139,20 @@
             </div>
             <div class="row">
                 <div class="form-group">
-
-
                     <input type="textarea" hidden class="form-control" value="<%out.print(request.getParameter("id_session"));%>" hidden id="textarea" required name="session">
-
                 </div>
             </div>
             <div class="form-group">
                 <input type="submit" id="singlebutton" name="Inscrire" class="btn btn-success" value="Enregistrer">
             </div>
+        </form>
+        <form name="form2" class="form-horizontal col-lg-6"  action="inscription" method="POST">
+            <input type="submit" id="secondbutton" name="Inscrire" class="btn btn-success" value="Accueil">
+        </form>
+
+        <form name="form3" class="form-horizontal col-lg-6"  action="inscription" method="POST">
+            <input type="textarea" hidden class="form-control" value="<%out.print(request.getParameter("id_session"));%>" hidden id="textarea" required name="session">
+            <input type="submit" id="secondbutton" name="Inscrire" class="btn btn-success" value="Course session">
         </form>
     </body>
 </html>
