@@ -8,7 +8,6 @@ package fr.utbm.ecole.repository;
 import fr.utbm.ecole.entity.Course;
 import fr.utbm.ecole.tools.HibernateUtil;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -68,12 +67,6 @@ public class CourseDao {
         try {
             session.beginTransaction();
             courses = session.createQuery("FROM Course").list();
-            for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                Course course = (Course) iterator1.next();
-                System.out.print("Code: " + course.getCode());
-                System.out.print("; Titre: " + course.getTitle());
-                System.out.println();
-            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -105,12 +98,6 @@ public class CourseDao {
             Query query = session.createQuery("FROM Course C where C.title LIKE CONCAT('%',:mot,'%')");
             query.setParameter("mot", mot_cle);
             courses = query.list();
-            for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                Course course = (Course) iterator1.next();
-                System.out.print("Code: " + course.getCode());
-                System.out.print("; Titre: " + course.getTitle());
-                System.out.println();
-            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -142,12 +129,6 @@ public class CourseDao {
             Query query = session.createQuery("select distinct S.course from Session S where :date between S.start_date and S.end_date");
             query.setParameter("date", date);
             courses = query.list();
-            for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                Course course = (Course) iterator1.next();
-                System.out.print("Code: " + course.getCode());
-                System.out.print("; Titre: " + course.getTitle());
-                System.out.println();
-            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -179,12 +160,6 @@ public class CourseDao {
             Query query = session.createQuery("select distinct S.course from Session S inner join S.location location where :loc=location.city");
             query.setParameter("loc", loc);
             courses = query.list();
-            for (Iterator iterator1 = courses.iterator(); iterator1.hasNext();) {
-                Course course = (Course) iterator1.next();
-                System.out.print("Code: " + course.getCode());
-                System.out.print("; Titre: " + course.getTitle());
-                System.out.println();
-            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
