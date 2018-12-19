@@ -33,9 +33,9 @@ public class inscription extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("/inscription.jsp").forward(request,response); 
-            try {
+
+        try {
+            if (request.getParameter("Inscrire") != null) {
                 if (request.getParameter("Inscrire").equals("Enregistrer")) {
                     String lastname = request.getParameter("lastname");
                     String firstname = request.getParameter("firstname");
@@ -46,12 +46,18 @@ public class inscription extends HttpServlet {
                     ClientService cl = new ClientService();
                     SessionService Ses = new SessionService();
                     cl.addClient(lastname, firstname, adress, number, mail, Ses.getSession(idSession));
-                    response.sendRedirect("/");
+                    response.sendRedirect("index");
                     return;
                 }
-            } catch (Exception ex) {
-                
+            } else {
+                try (PrintWriter out = response.getWriter()) {
+                    request.getRequestDispatcher("/inscription.jsp").forward(request, response);
+                } catch (Exception ex) {
+
+                }
             }
+
+        } catch (Exception ex) {
 
         }
     }
