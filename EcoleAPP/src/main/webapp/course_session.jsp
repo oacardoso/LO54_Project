@@ -137,6 +137,7 @@
                         for (Iterator iterator1 = Sessions.iterator(); iterator1.hasNext();) {
                             Session sessionn = (Session) iterator1.next();
                             int max = sessionn.getMax();
+                            double pourcentage = ((float) Ses.numParticipants(sessionn.getId()) / (float) max)*100;
                             // pour session on chercher les nombre de client inscrit( avec list.size() ) pour calculer le percentage de client inscrit
                     %>
 
@@ -159,7 +160,7 @@
                             <span class="popuptext" id="myPopup"> Vous ne pouvez pas vous inscrire car le nombre de participant maximum est atteint.</span>
                         </td>
                         <td><% out.print(sessionn.getEnd_date()); %></td>
-                        <td><%out.print((((float) Ses.numParticipants(sessionn.getId()) / (float) max)) * 100 + "%");%></td>
+                            <td><%out.print(Math.round(pourcentage) + "%");%></td>
                         <td><% out.print(max); %></td>
                         <td><% out.print(sessionn.getLocation().getCity()); %></td>
                     </tr> 
