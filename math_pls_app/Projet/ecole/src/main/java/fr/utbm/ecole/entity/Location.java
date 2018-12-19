@@ -5,11 +5,20 @@
  */
 package fr.utbm.ecole.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 /**
  *
  * @author mperrot
  */
-public class Location {
+@Entity
+@Table(name="LOCATION",  uniqueConstraints = {@UniqueConstraint(columnNames={"ID"})})
+public class Location implements Serializable{
+    @Id
     private int id = -1;
     private String city = null;
 

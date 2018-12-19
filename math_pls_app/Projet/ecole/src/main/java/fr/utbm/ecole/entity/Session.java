@@ -6,12 +6,19 @@
 package fr.utbm.ecole.entity;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author mperrot
  */
+@Entity
+@Table(name="COURSE_SESSION")
+
 public class Session {
+    @Id
     private int id = -1;
     private Date start_date = null;
     private Date end_date = null;

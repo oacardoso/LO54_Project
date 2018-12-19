@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import fr.utbm.ecole.service.ClientService;
 import fr.utbm.ecole.service.SessionService;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
  * @author User
  */
+@WebServlet(name = "inscription", urlPatterns = {"/EcoleAPP/inscription"})
 public class inscription extends HttpServlet {
 
     /**

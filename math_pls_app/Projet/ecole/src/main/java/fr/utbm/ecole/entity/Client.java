@@ -5,15 +5,23 @@
  */
 package fr.utbm.ecole.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author mperrot
  */
-public class Client {
+@Entity
+@Table(name="CLIENT",  uniqueConstraints = {@UniqueConstraint(columnNames={"ID"})})
+public class Client implements Serializable {
 
+    @Id
     private int id = -1;
     private String last_name = null;
     private String first_name = null;
