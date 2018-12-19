@@ -31,6 +31,15 @@ public class SessionDao {
             Query query = session.createQuery("FROM Session S where S.course = :course ");
             query.setParameter("course", course);
             sess = query.list();
+            System.out.println("Cours : " + course.getCode());
+            for (Iterator iterator1 = sess.iterator(); iterator1.hasNext();) {
+                fr.utbm.ecole.entity.Session s = (fr.utbm.ecole.entity.Session) iterator1.next();
+                System.out.println("Location: " + s.getLocation());
+                System.out.println("Debut: " + s.getStart_date());
+                System.out.println("Fin: " + s.getEnd_date());
+                System.out.println("Max: " + s.getMax());
+                System.out.println();
+            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -62,6 +71,15 @@ public class SessionDao {
             Query query = session.createQuery("Select S FROM Session S inner join S.course course where course.code = :code");
             query.setParameter("code", code);
             sess = query.list();
+            System.out.println("Cours : " + code);
+            for (Iterator iterator1 = sess.iterator(); iterator1.hasNext();) {
+                fr.utbm.ecole.entity.Session s = (fr.utbm.ecole.entity.Session) iterator1.next();
+                System.out.println("Location: " + s.getLocation());
+                System.out.println("Debut: " + s.getStart_date());
+                System.out.println("Fin: " + s.getEnd_date());
+                System.out.println("Max: " + s.getMax());
+                System.out.println();
+            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -124,6 +142,7 @@ public class SessionDao {
             Query query = session.createQuery("Select count(*) FROM Client C inner join C.sessions sessions where sessions.id = :id");
             query.setParameter("id", id);
             nb = (long)query.uniqueResult();
+            System.out.println("Nb participants : " + nb);
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();

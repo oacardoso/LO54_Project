@@ -28,6 +28,11 @@ public class LocationDao {
         try {
             session.beginTransaction();
             locations = session.createQuery("FROM Location").list();
+            for (Iterator iterator1 = locations.iterator(); iterator1.hasNext();) {
+                Location location = (Location) iterator1.next();
+                System.out.print("Ville: " + location.getCity());
+                System.out.println();
+            }
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
