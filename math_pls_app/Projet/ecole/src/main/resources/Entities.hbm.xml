@@ -5,7 +5,7 @@
   
 <hibernate-mapping package="fr.utbm.ecole.entity"> 
   
-    <class name="Client" table="CLIENT"> 
+    <class name="Client" table="CLIENT" lazy="false"> 
         <id column="ID" name="id">
             <generator class="identity"/>
         </id>
@@ -20,20 +20,20 @@
         </set>
     </class>
 	
-    <class name="Course" table="COURSE"> 
+    <class name="Course" table="COURSE" lazy="false"> 
         <id column="CODE" name="code">
             <generator class="assigned"/>
         </id>
         <property name="title" column="TITLE" not-null="true"/>
     </class> 
 	
-    <class name="Location" table="LOCATION"> 
+    <class name="Location" table="LOCATION" lazy="false"> 
         <id column="ID" name="id">
             <generator class="identity"/>
         </id>
         <property name="city" column="CITY" not-null="true"/>
     </class> 
-    <class name="Session" table="COURSE_SESSION"> 
+    <class name="Session" table="COURSE_SESSION" lazy="false"> 
         <id column="ID" name="id">
             <generator class="identity"/>
         </id>
